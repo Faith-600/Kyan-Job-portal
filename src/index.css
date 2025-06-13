@@ -9,10 +9,10 @@
   /* overflow: hidden; */
 
   background-image:
-  url('Vector1.svg'), 
-    url('Vector2.svg'),
-    url('Vector3.svg'), 
-    url('Vector4.svg'),
+  url('/Vector1.svg'), 
+    url('/Vector2.svg'),
+    url('/Vector3.svg'), 
+    url('/Vector4.svg'),
     radial-gradient(circle at bottom left, rgba(255, 255, 255, 0.1), transparent 200px),
     radial-gradient(circle at top right, rgba(255, 255, 251, 0.1), transparent 200px);
    
