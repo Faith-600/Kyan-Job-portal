@@ -1,14 +1,24 @@
 import Hero from "./Components/Hero"
-import HomeJobFile from "./Components/HomeJobFile"
-import JobListings from "./Components/HomeJobFile"
-import jobs from "./Components/HomeJob"
+import { BrowserRouter, Routes, Route } from 'react-router-dom';
+import JobDetailsPage from "./Components/JobDetailsPage";
+import ThankYou from "./Components/ThankYou";
+
 
 function App() {
  
 
   return (
     <>
-   <Hero/>
+        <BrowserRouter>
+      <Routes>
+        <Route path="/" element={<Hero/> } /> 
+        
+        <Route path="/job/:id" element={<JobDetailsPage />} />
+         <Route path="/thank-you" element={<ThankYou />} />
+
+      </Routes>
+    </BrowserRouter>
+   
    
     </>
   )

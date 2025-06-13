@@ -5,6 +5,7 @@ import JobList from './JobList'
 import Footer from './Footer'
 import JobCard from './JobCard'
 import HeroPage from './HeroPage'
+import WhatsAppFloat from './Whatsapp'
 
 
 
@@ -22,20 +23,17 @@ function Hero() {
     <div class="highlight highlight-8"></div>
 
 
-{/* <JobPortal/> */}
 <HeroPage/>
 </div>
+<section id = "apply">
+  <JobCard />
+</section>
 
+          <div id ="contact-us">
+         <Footer />
+         </div>
 
-  {/* <div className="app"> */}
-      {/* <main className="main-content"> */}
-       <JobCard/>
-        {/* <Filters /> */}
-        
-        {/* </main> */}
-      <Footer />
-    {/* </div> */}
-
+    <WhatsAppFloat/>
 
     </>
   

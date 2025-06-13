@@ -119,9 +119,6 @@
   right: 660px;
   opacity: 3;
 }
-
-
-
 .navbar {
   position: fixed;
   top: 10px; 
@@ -136,9 +133,7 @@
   box-shadow: 0 2px 6px rgba(0,0,0,0.1);
   height: 80px;
    white-space: nowrap;
-   
-   
-}
+   }
 
 .nav-content {
   display: flex;
@@ -182,7 +177,6 @@
   text-align: center;
   display: flex;
   flex-direction: column;
- 
  }
 
 .company-profile-btn {
@@ -210,13 +204,8 @@
   display: flex;          
   justify-content: center;  
   align-items: center;
-  
-  
-}
-
-
-
- .hero-Content h1{
+  }
+.hero-Content h1{
   font-size: 40px;
   margin-top: 70px;
   padding-top: 20px;
@@ -229,9 +218,6 @@
   flex-wrap: wrap;
   }
 /* Job Hero Wrapper Container */
-
-
-
 .job-listings-container {
   display: flex;
   flex-direction: column;
@@ -347,7 +333,7 @@
   font-size: 1.125rem;
 }
 
-.apply-button {
+.apply-button{
   background-color: #111827; 
   color: #ffffff;
   border: none;
@@ -360,6 +346,21 @@
   transition: background-color 0.2s ease-in-out;
   }
 
+  .apply-button-now {
+  background-color: #111827; 
+  color: #ffffff;
+  border: none;
+  border-radius: 8px;
+  padding: 0.75rem 1.5rem;
+  font-size: 1rem;
+  font-weight: 600;
+  cursor: pointer;
+  width: 150px;
+  transition: background-color 0.2s ease-in-out;
+  display: flex;
+  align-self: center; 
+
+  }
 .apply-button:hover {
   background-color: #374151;
 }
@@ -494,15 +495,6 @@ body {
 
 
 /* --- Job List & Header --- */
-/* .job-list-container { 
-  flex: 1;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center; 
- }  */
-
-
 
 .job-list-header {
   display: flex;
@@ -515,10 +507,11 @@ body {
   background-color: #ffffff;
   border: 1px solid #e0e0e0;
   margin-top: 20px;
- }
+}
  .job-container{
   display: flex;
-margin-left: 20px;
+margin-right: 20px;
+justify-content: center;
 
 }
 
@@ -568,6 +561,7 @@ margin-left: 20px;
 .same-same{
 display: flex;
 gap: 10px;
+margin-left: 50px;
 }
 
 .job-card {
@@ -674,8 +668,8 @@ gap: 10px;
     margin: 20px;
     transform: translateX(31%);
 
+   }
    
-}
 
 .show-entries {
   display: flex;
@@ -887,6 +881,228 @@ gap: 10px;
     font-size: 18px;
 }
 
+
+/* JOBDETAILSPAGE */
+.job-details-page {
+  background-color: #f4f6f8;
+  min-height: 100vh;
+}
+
+.details-header {
+  background-color: #0d1a2e;
+  color: #ffffff;
+  padding: 70px 5%;
+  border-bottom-left-radius: 30px;
+  border-bottom-right-radius: 30px;
+ 
+}
+
+.details-header h1 {
+  font-size: 3.5rem;
+  font-weight: 700;
+  margin-top: 1.5rem;
+}
+
+.job-description-subtitle {
+  font-size: 1.5rem;
+  color: #00aaff;
+  font-weight: 600;
+}
+
+.details-content-area {
+  padding: 40px ;
+  position: relative;
+}
+
+
+.details-layout {
+  display: flex; 
+  align-items: flex-start;
+  gap: 30px; 
+  border-radius: 20px;
+  padding: 20px;
+ 
+}
+.detail-section h4{
+   color: #555;
+   font-size: 20px;
+}
+
+.details-sidebar {
+  flex: 0 0 220px;
+  background-color: white;
+   border-radius: 20px;
+ }
+
+.sidebar-nav {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+    height: 80vh;
+  justify-content: center;
+  align-items: center;
+}
+
+.sidebar-nav button {
+  border: 1px solid #e0e0e0;
+  border-radius: 10px;
+  background-color: #ffffff;
+  text-align: center;
+  font-size: 0.9rem;
+  font-weight: 600;
+  color: #333;
+  cursor: pointer;
+  transition: all 0.2s ease-in-out;
+  height: 40px;
+ justify-content: center;
+ width:150px;
+ display: flex;
+ align-items: center;
+ 
+ 
+ }
+
+ .sidebar-nav button .active-indicator {
+  display: inline-block;
+  width: 5px;
+  height: 22px;
+  margin-right: 12px;
+  background-color: transparent; 
+  border-radius: 3px;
+  transition: background-color 0.2s ease-in-out;
+}
+
+.sidebar-nav button:hover {
+  background-color: #f8f9fa;
+  border-color: #ccc;
+}
+
+.sidebar-nav button.active {
+  background-color: #0d1a2e;
+  color: #ffffff;
+  border-color: #0d1a2e;
+  }
+
+  .sidebar-nav button.active .active-indicator {
+  background-color: #ffffff; 
+ 
+}
+
+/* .details-main-content {
+  display: flex; 
+  background-color: white;
+ box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
+ border-radius: 10px;
+ width: 70vw;
+ min-height: 80vh; 
+ justify-content: flex-start;
+ padding: 30px;
+all: initial;
+} */
+
+.job-detail-form-wrapper{
+  display: flex; 
+  background-color: #ffffff;
+ box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
+ border-bottom-left-radius: 10px;   
+  border-bottom-right-radius: 10px; 
+ min-width: 50vw;
+ min-height: 80vh; 
+ justify-content: flex-start;
+ padding: 20px;
+ flex-direction: column;
+ margin-bottom: 20px;
+ 
+}
+
+.details-main-content h2{
+  font-size: 2rem;
+  color: #333;
+ font-weight: bolder;
+ background-color: white;
+  border-top-left-radius: 10px;   
+  border-top-right-radius: 10px; 
+  border-bottom: none;
+ padding: 10px;
+ min-width: 50vw; 
+}
+
+.details-layout.submitted {
+  display: flex; 
+  justify-content: center; 
+}
+
+.details-layout.submitted .details-main-content {
+    width: 100%;
+    max-width: 800px;
+}
+
+
+.details-main-content h6 {
+  font-weight: bolder;
+
+}
+
+.details-main-content p {
+  line-height: 1.7;
+  color: #555;
+}
+
+
+
+.details-main-content ul {
+  padding-left: 20px;
+  line-height: 1.8;
+    list-style-type: disc;     
+  list-style-position: outside;
+}
+
+.details-main-content li {
+  margin-bottom: 10px;
+}
+
+
+
+/* Whatsapp section */
+@keyframes glow {
+  0% {
+    box-shadow: 0 0 5px #25d366, 0 0 10px #25d366;
+  }
+  50% {
+    box-shadow: 0 0 20px #25d366, 0 0 30px #25d366;
+  }
+  100% {
+    box-shadow: 0 0 5px #25d366, 0 0 10px #25d366;
+  }
+}
+.whatsapp-float {
+
+  position: fixed;
+  bottom: 40px;   
+  right: 40px;     
+  z-index: 1000;   
+
+  background-color: #25d366; 
+  color: #ffffff;
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  /* Icon size */
+  font-size: 30px;
+ animation: glow 2s infinite ease-in-out;
+  
+  transition: transform 0.2s ease-in-out;
+}
+
+.whatsapp-float:hover {
+  transform: scale(1.1);
+  animation-play-state: paused; 
+}
+
+
 /* Tablet View  */
 @media (max-width: 1024px) {
 .heroSection {
@@ -976,7 +1192,7 @@ gap: 10px;
 
  .pagination {
  width:70vw;
-   transform: translateX(15%);
+   transform: translateX(17%);
 }
 
 .job-card{
@@ -994,6 +1210,12 @@ width:320px ;
 }
 .same-same{
   justify-content: center;
+ margin-left: 10px;
+
+}
+
+ .job-container{
+margin-left: 30px;
 }
 
 }
@@ -1263,7 +1485,7 @@ width:320px ;
           }
   .job-list-header {
   flex-direction: column;
-  min-width: 90vw;
+  min-width: 83vw;
   height: auto;
   padding: 10px;
  }
@@ -1323,7 +1545,7 @@ width:320px ;
 }
 .pagination {
   width:85vw ;
-transform: translateX(3%);
+transform: translateX(4%);
 }
 
 .job-listings{
@@ -1432,10 +1654,43 @@ font-size: 1.1rem;
  .job-listings-container {
   height: 200px;
  }
+/* JOBDISPLAYPAGE */
 
+  .details-layout {
+    flex-direction: column;
+   
+  }
+  .details-sidebar {
+    flex-basis: auto;
+    /* width: 300px; */
+    padding: 10px;
+      }
+  .details-header h1 {
+    font-size: 2.5rem;
+  }
 
+.sidebar-nav {
+    flex-direction: row;     
+    flex-wrap: wrap;          
+    justify-content: center;
+      height: 200px;  
+     
+  }
+  .sidebar-nav button {
+    width: 120px;
+    justify-content: center;
+  }
  
+.details-main-content {
 
+ width: 90vw;
+}
+.details-content-area {
+  padding: 0 ;
+}
+.same-same{
+margin-left: 10px;
+}
 
 
 }

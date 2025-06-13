@@ -23,13 +23,17 @@ const HeroPage = () => {
             className={active === "apply" ? "active" : ""}
             onClick={() => setActive("apply")}
           >
+            <a href="#apply">
             Apply
+            </a>
           </li>
           <li
             className={active === "contact" ? "active" : ""}
             onClick={() => setActive("contact")}
           >
+            <a href="#contact-us">
             Contact Us
+            </a>
           </li>
         </ul>
 
@@ -44,12 +48,12 @@ const HeroPage = () => {
    Join us to grow your skills, build meaningful brands,<br/> and
     contribute to solutions that truly make a difference.
       </p>
-      <button className="company-profile-btn">
+     <a href="/myfile.pdf" download="companyProfile.pdf" className="company-profile-btn">
         Download  Company Profile{" "}
           <span className="download-icon" role="img" aria-label="download">
            <IoDownloadOutline />
           </span>
-        </button>
+        </a>
      <div>
        
         </div>

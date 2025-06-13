@@ -2,11 +2,15 @@ import React from 'react';
 import { SlCalender } from "react-icons/sl";
 import { GoPerson } from "react-icons/go";
 import { LuBriefcaseBusiness } from "react-icons/lu";
+import { Link } from 'react-router-dom';
 
 const JobList = ({ job }) => {
   if (!job) {
     return null;
   }
+
+ const hasDetails = job.summary && job.summary.trim() !== '';
+
 const formatTimeAgo = (dateString) => {
     if (!dateString) return '';
 
@@ -60,8 +64,15 @@ const formatTimeAgo = (dateString) => {
           </span>
         </div>
       </div>
-      <button className="view-details-button">View Details</button>
-    </div>
+        {hasDetails ? (
+          <Link to={`/job/${job.id}`} className="apply-button-now">
+            View Details
+          </Link>
+        ) : (
+          <button className="apply-button-now" disabled>
+            Coming Soon
+          </button>
+        )}    </div>
      
      </>
      
