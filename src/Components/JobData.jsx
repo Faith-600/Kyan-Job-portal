@@ -3,12 +3,13 @@ const jobsData = [
     id: 1,
     avatar: 'Avatar Image.png', 
     title: 'Operations and Administrative Assistant',
-    description: `We need a reliable and detail-oriented person to join our team! If you thrive in a structured environment, enjoy keeping things organized, and have a knack for supporting smooth day-to-day operations.`,
+    description: `We need a reliable and detail-oriented person to join our team! \n If you thrive in a structured environment,  enjoy keeping things organized, \n and have a knack for supporting smooth day-to-day operations.`,
     level: 'Officer',
     location: 'Remote',
     posted_ago: '2025-06-11',
     summaryTitle:"Job Summary",
-    summary:"Kyan Brands is seeking a proactive and organized Remote Office Assistant to support the day-to-day operations of our creative brand agency. This role involves handling administrative tasks, client communications, project coordination, and supporting our marketing and sales efforts. While this is primarily a remote role, occasional in-person participation may be required for critical meetings, presentations, or agency events.",
+    titleTwo: 'Operations and \n Administrative Assistant․',
+    summary:"Kyan Brands is seeking a proactive and organized Remote Office Assistant to support \n the day-to-day operations of our creative brand agency. This role involves handling \n administrative tasks, client communications, project coordination, and supporting our\n marketing and sales efforts. While this is primarily a remote role, occasional in-person \n participation may be required for critical meetings, presentations, or agency events.",
    detailsTitle:"Job Details",
     details: [
     {
@@ -95,21 +96,31 @@ const jobsData = [
       "Training and mentorship in brand communication, client management, and content planning",
        "Possible performance-based bonuses or project allowances"
       ],
-      applyNow:"Thank you for your interest in joining our team! We are looking for a highly organized, detail-oriented, and proactive individual to support our company's operations, client coordination, and project management tasks.This form is designed to help us get a better understanding of your skills, experience, and work style. Please answer honestly and thoroughly.",
-   benefitDetail:[
-    "Monthly Salary: ₦50,000",
-"Work Setup: Primarily remote",
-"Working Hours: (8 hours/day, Mon–Fri)",
-"We value clear communication, reliability, and a willingness to learn.",
-"If you’re shortlisted, we’ll reach out to schedule the next step in the hiring process.",
+      applyContent: {
+    intro: [
+      "Thank you for your interest in joining our team!",
+      "We are looking for a highly organized, detail-oriented, and proactive individual to support our company's operations, client coordination, and project management tasks.",
+      "This form is designed to help us get a better understanding of your skills, experience, and work style. Please answer honestly and thoroughly."
+    ],
+    notesTitle: "A few important notes before you begin:",
+    notes: [
+      "Monthly Salary: ₦50,000",
+      "Work Setup: Primarily remote",
+      "Working Hours: (8 hours/day, Mon-Fri)"
+    ],
+    outro: [
+      "We value clear communication, reliability, and a willingness to learn.",
+      "If you're shortlisted, we'll reach out to schedule the next step in the hiring process."
     ]
+  }, 
 
   },
+
   {
     id: 2,
     avatar: 'Avatar Image1.png', 
     title: 'Brand & Media Creative Designer',
-    description: 'We\'re looking for a creative and skilled Creative Designer to join our team! If you have a passion for visual storytelling, love crafting compelling brand identities, and thrive in a fast-paced creative environment, this role is made for you.',
+    description: 'We\'re looking for a creative and skilled Creative Designer to join our team! \n If you have a passion for  visual storytelling, love crafting compelling brand  identities,\n and thrive in a fast-paced creative environment, this role is made for you.',
     level: 'Any Level',
     location: 'Remote',
     posted_ago: '2025-06-10'
@@ -118,7 +129,7 @@ const jobsData = [
     id: 3,
     avatar: 'Avatar Image2.png', 
     title: 'Frontend Developer',
-    description: 'We are looking for a talented Frontend Developer to join our team! If you are passionate about building beautiful, responsive, and user-friendly web applications, this is the perfect opportunity for you.',
+    description: 'We are looking for a talented Frontend Developer to join our team! \n If you are passionate about building  beautiful, responsive,and user-friendly \n web applications, this is the perfect opportunity for you.',
     level: 'Any Level',
     location: 'Remote',
     posted_ago: '2025-06-7'
@@ -127,7 +138,7 @@ const jobsData = [
     id: 4,
     avatar: 'Avatar Image3.png',
     title: 'Backend Developer',
-    description: 'We\'re looking for a smart and solutions-driven Backend Developer to join our team! If you enjoy building efficient systems, untangling APIs, and solving complex problems behind the scenes, this is a great opportunity to grow with us.',
+    description: 'We\'re looking for a smart and solutions-driven  Backend Developer to \n  join our team!  If you enjoy  building  efficient systems, untangling APIs, \n and solving complex problems behind the scenes, this is  a great \n opportunity to grow with us.',
     level: 'Any Level',
     location: 'Remote',
     posted_ago: '2025-06-9'
@@ -136,10 +147,10 @@ const jobsData = [
     id: 5,
     avatar: 'Avatar Image4.png', 
     title: 'UI/UX Designer',
-    description: 'We\'re looking for a creative and user-focused UI/UX Designer to join our team! If you love crafting intuitive interfaces, designing seamless user experiences, and turning ideas into functional visuals, this is the perfect opportunity to bring your skills to life.',
+    description: 'We\'re looking for a creative and user-focused UI/UX Designer to \n join our team! If you love crafting intuitive  interfaces, designing seamless \n user  experiences, and  turning ideas into functional visuals, this \n is the perfect  opportunity to bring your skills to life.',
     level: 'Any Level',
     location: 'Remote',
-    posted_ago: '2025-05-11'
+    posted_ago: '2025-06-11'
   }
 ];
  export default jobsData

@@ -65,13 +65,17 @@ const formatTimeAgo = (dateString) => {
         </div>
       </div>
         {hasDetails ? (
+          <div className='apply-container'>
           <Link to={`/job/${job.id}`} className="apply-button-now">
             View Details
           </Link>
+          </div>
         ) : (
+          <div className='apply-container'>
           <button className="apply-button-now" disabled>
             Coming Soon
           </button>
+          </div>
         )}    </div>
      
      </>

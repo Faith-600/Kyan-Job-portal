@@ -1,25 +1,56 @@
-import React, { useState } from 'react';
+import React, { useState,useEffect } from 'react';
 import { MdOutlineCall } from "react-icons/md";
 import { CiMail } from "react-icons/ci";
 import { GoPerson } from "react-icons/go";
 import { FaInstagram } from "react-icons/fa";
 import { FaFacebookSquare } from "react-icons/fa";
 import { FaTwitter } from "react-icons/fa";
+import { FaRegCopyright } from "react-icons/fa";
+import { FaArrowUp } from "react-icons/fa";
+import { useInView } from 'react-intersection-observer';
 
 
 
 
 
 
-const Footer = () => {
+
+const Footer = React.forwardRef((props,ref) => {
  const [email, setEmail] = useState('');
   const [isSubscribing, setIsSubscribing] = useState(false);
   const [subscribed, setSubscribed] = useState(false);
+  const [isVisible, setIsVisible] = useState(false);
 
 //     mailchimp.setConfig({
 //     apiKey: "YOUR_MAILCHIMP_API_KEY",
 //     server: "YOUR_MAILCHIMP_SERVER_PREFIX" // e.g., "us12"
 //   });
+
+
+ 
+  const toggleVisibility = () => {
+    if (window.pageYOffset > 800) { 
+      setIsVisible(true);
+    } else {
+      setIsVisible(false);
+    }
+  };
+
+  const scrollToTop = () => {
+    window.scrollTo({
+      top: 0,
+      behavior: 'smooth' 
+    });
+  };
+
+    useEffect(() => {
+    window.addEventListener('scroll', toggleVisibility);
+
+    return () => {
+      window.removeEventListener('scroll', toggleVisibility);
+    };
+  }, []);
+
 
   const validateEmail = (email) => {
     const re = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
@@ -56,7 +87,7 @@ const Footer = () => {
     return(
       
 
-    <footer className="site-footer">
+    <footer id="contact" ref={ref} className="site-footer">
         <div className="footer-newsletter">
             <h3>Join our newsletter!</h3>
             <form className="newsletter-form"  onSubmit={handleSubmit}>
@@ -93,12 +124,20 @@ const Footer = () => {
 </a>
             </div>
             <div className="footer-copyright">
-                <span>© Kyanbrands, 2015.</span>
+              <div className='footer-contact'>
+                <span><FaRegCopyright size={25}/>
+            Kyanbrands, 2025.</span>
+            </div>
             </div>
         </div>
+         {isVisible && (
+        <button onClick={scrollToTop} className="scroll-to-top-btn">
+          <FaArrowUp />
+        </button>
+      )}
     </footer>
     )
-};
+});
 
 
 export default Footer

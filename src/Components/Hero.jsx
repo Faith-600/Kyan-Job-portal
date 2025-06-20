@@ -1,15 +1,42 @@
-import React from 'react'
-import JobPortal from './HeroPage'
-// import Filters from './Filter'
-import JobList from './JobList'
+import React,{useState,useEffect} from 'react'
 import Footer from './Footer'
 import JobCard from './JobCard'
 import HeroPage from './HeroPage'
 import WhatsAppFloat from './Whatsapp'
-
+import NavBar from './NavBar'
+import { useInView } from 'react-intersection-observer'
+import FramerScrollBlur from './Framer'
 
 
 function Hero() {
+  const [activeSection, setActiveSection] = useState(''); 
+   const { ref: homeRef, inView: homeInView } = useInView({
+    threshold: 0.1,
+  });
+
+    const { ref: applyRef, inView: applyInView } = useInView({
+    threshold: 0.2, 
+  });
+
+  const { ref: contactRef, inView: contactInView } = useInView({
+    threshold: 0.2,
+  });
+   useEffect(() => {
+    if (contactInView) {
+      setActiveSection('contact');
+    } 
+    else if (applyInView) {
+      setActiveSection('apply');
+    }
+ 
+    else if (homeInView) {
+      setActiveSection('home');
+    } 
+    else {
+      setActiveSection('');
+    }
+  }, [homeInView, applyInView, contactInView]);
+
   return (
     <>
     <div className='heroSection'>
@@ -22,16 +49,21 @@ function Hero() {
     <div class="highlight highlight-7"></div>
     <div class="highlight highlight-8"></div>
 
-
-<HeroPage/>
+<NavBar activeSection={activeSection}  />
+<HeroPage ref={homeRef} />
 </div>
-<section id = "apply">
-  <JobCard />
+
+<section id = "apply" ref={applyRef}>
+  <JobCard activeSection={activeSection} 
+   setActiveSection={setActiveSection} />
 </section>
 
-          <div id ="contact-us">
-         <Footer />
+
+
+          <div id ="contact-us" ref={contactRef}>
+         <Footer  setActiveSection={setActiveSection} />
          </div>
+        
 
     <WhatsAppFloat/>
 

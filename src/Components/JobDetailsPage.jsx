@@ -1,17 +1,31 @@
-import React, { useState } from 'react';
+import React, { useState,useEffect } from 'react';
 import { useParams, Link } from 'react-router-dom';
 import jobsData from './JobData'; 
 import Footer from './Footer';
 import WhatsAppFloat from './Whatsapp';
 import CustomForm from './CustomForm';
 import ThankYou from './ThankYou';
+import NavBar from './NavBar';
+import { useInView } from 'react-intersection-observer';
 
 const JobDetailsPage = () => {
   const [activeTab, setActiveTab] = useState('summary');
   const { id } = useParams(); 
     const job = jobsData.find(j => j.id.toString() === id);
-   const [active, setActive] = useState("apply");
+  const [activeSection, setActiveSection] = useState('');
     const [isSubmitted, setIsSubmitted] = useState(false);
+
+  const { ref: contactRef, inView: contactInView } = useInView({
+    threshold: 0.2,
+  });
+
+  useEffect(() => {
+    if (contactInView) {
+      setActiveSection('contact');
+    } else {
+      setActiveSection('');
+    }
+  }, [contactInView]);
 
       const handleFormSuccess = () => {
     setIsSubmitted(true);
@@ -35,19 +49,31 @@ const JobDetailsPage = () => {
   };
 
   const renderContent = () => {
+
+     if (isSubmitted) {
+      return <ThankYou jobTitle={job.title} />;
+    }
+    
+    const title = getActiveTitle();
+
+     const renderTabContent = (content) => (
+      <div className="content-box">
+        {title && <h2>{title}</h2>}
+        {content}
+      </div>
+    );
     switch (activeTab) {
       case 'summary':
-        return(<div className="job-detail-form-wrapper">
-            <p>{job.summary}</p>
-          </div>);
+        return renderTabContent(<p>{job.summary}</p>);
 
-                case 'details':
-         return (
-            <div className="job-detail-form-wrapper">
+              case 'details':
+        return renderTabContent(
           <div className="job-details-sections">
             {job.details.map((section, index) => (
               <div key={index} className="detail-section">
-                <h4>{section.section}</h4>
+                
+                {section.section && <h4>{section.section}</h4>}
+
                 <ul>
                   {section.responsibilities.map((resp, respIndex) => (
                     <li key={respIndex}>{resp}</li>
@@ -56,48 +82,45 @@ const JobDetailsPage = () => {
               </div>
             ))}
           </div>
-          </div>
         );
       case 'requirements':
-          return (
-          <div className="job-detail-form-wrapper">
-            <ul>
-              {job.requirementDetails.map((req, index) => (
-                <li key={index}>{req}</li>
-              ))}
-            </ul>
-          </div>
+          return renderTabContent(
+          <ul>
+            {job.requirementDetails.map((req, index) => (
+              <li key={index}>{req}</li>
+            ))}
+          </ul>
         );
       case 'benefits':
-        return (
-          <div className="job-detail-form-wrapper">
-            <ul>
-              {job.benefitDetails.map((ben, index) => (
-                <li key={index}>{ben}</li>
-              ))}
-            </ul>
-          </div>
+         return renderTabContent(
+          <ul>
+            {job.benefitDetails.map((ben, index) => (
+              <li key={index}>{ben}</li>
+            ))}
+          </ul>
         );
       case 'apply':
-           if (isSubmitted) {
-          return <ThankYou jobTitle={job.title} />;
-        }
-        return (
-          <div >
-           <div className="job-detail-form-wrapper">
-           <p>{job.applyNow}</p>
-          <h6>A few important notes before you begin:</h6>
-                  <ul>      
-            {job.benefitDetail.map((ben, index) => <li key={index}>{ben}</li>)}
-          </ul>  
-         </div> 
-         <div>
+         return (
+          <>
+          {renderTabContent(
+              <>
+                {(job.applyContent.intro || []).map((p, index) => <p key={`intro-${index}`}>{p}</p>)}
+
+                {job.applyContent.notesTitle && <h6>{job.applyContent.notesTitle}</h6>}
+                
+                <ul>
+                  {(job.applyContent.notes || []).map((note, index) => <li key={`note-${index}`}>{note}</li>)}
+                </ul>
+
+                {(job.applyContent.outro || []).map((p, index) => <p key={`outro-${index}`}>{p}</p>)}
+              </>
+            )}
+
               <CustomForm 
                 jobTitle={job.title} 
                 onSuccess={handleFormSuccess} 
               />
-            </div>
-        </div> 
+        </> 
           
          
          
@@ -105,45 +128,18 @@ const JobDetailsPage = () => {
         );
          
       default:
-        return <p>{job.summary}</p>;
+        return renderTabContent(<p>{job.summary}</p>);
     }
   };
 
 
   return (
       <>
-       <nav className="navbar">
-      <div className="nav-content">
-        <img
-          src="../logo.png"
-          alt="Company Logo"
-          className="company-logo"
-        />
-
-        <ul className="nav-links">
-          <li
-            className={active === "apply" ? "active" : ""}
-            onClick={() => setActive("apply")}
-          >
-            Apply
-          </li>
-          <li
-            className={active === "contact" ? "active" : ""}
-            onClick={() => setActive("contact")}
-          >
-            <a href="#contact-us">
-            Contact Us
-            </a>
-          </li>
-        </ul>
-
-      
-      </div>
-    </nav>
+      <NavBar activeSection={activeSection}/>
      
     <div className="job-details-page">
       <header className="details-header">
-        <h1>{job.title}</h1>
+        <h1>{job.titleTwo}</h1>
         <p className="job-description-subtitle">Job Description</p>
       </header>
 
@@ -175,11 +171,8 @@ const JobDetailsPage = () => {
           </aside>
               )}
 
-            <section className="details-main-content">
-              <h2>{getActiveTitle()}</h2>
-               <div className="details-content-wrapper">
+              <section className="details-main-content">
               {renderContent()}
-              </div>
             </section>
         </div>
       </main>
@@ -187,7 +180,7 @@ const JobDetailsPage = () => {
      </div>
      <div id ="contact-us">
          
-     <Footer/>
+     <Footer ref={contactRef}/>
      </div>
      <WhatsAppFloat/>
      </>

@@ -5,18 +5,18 @@ import Filters from "./Filter";
 import jobsData from "./JobData";
 import JobList from "./JobList";
 import { IoMdArrowDropleft, IoMdArrowDropright } from "react-icons/io";
+import { useInView } from 'react-intersection-observer';
+
 
 
 const INITIAL_FILTERS = {
-  workingSchedule: [],
+  location: [],
   employmentType: [],
 };
-const JobCard = () => {
+const JobCard = React.forwardRef((props ,ref) => {
   const [isFilterVisible, setFilterVisible] = useState(false);
-    const [filteredJobs, setFilteredJobs] = useState(jobsData);
-      const [searchTerm, setSearchTerm] = useState('');
-
-  const [activeFilters, setActiveFilters] = useState(INITIAL_FILTERS);
+   const [searchTerm, setSearchTerm] = useState('');
+   const [activeFilters, setActiveFilters] = useState(INITIAL_FILTERS);
    const [dateFilter, setDateFilter] = useState('all');
 
     
@@ -39,68 +39,52 @@ const JobCard = () => {
     }
   };
 
-const areFiltersActive = activeFilters.workingSchedule.length > 0 || activeFilters.employmentType.length > 0;
-//TOGGLE FUNCTIONALITY 
-  const toggleFilterVisibility = () => {
+const areFiltersActive = activeFilters.location.length > 0 || activeFilters.employmentType.length > 0;
+  
+const toggleFilterVisibility = () => {
     setFilterVisible(!isFilterVisible);
   };
 
-    useEffect(() => {
-    let jobsToShow=jobsData;
-
-    if (searchTerm.trim() !== '') {
-      jobsToShow = jobsToShow.filter(job =>
-        job.title && job.title.toLowerCase().includes(searchTerm.toLowerCase())
-      );
-
-    }
-
-      if (activeFilters.employmentType.length > 0) {
-      jobsToShow = jobsToShow.filter(job =>
-        activeFilters.employmentType.includes(job.employmentType)
-      );
-    }
-
-        if (activeFilters.workingSchedule.length > 0) {
-      jobsToShow = jobsToShow.filter(job =>
-        activeFilters.workingSchedule.includes(job.workingSchedule)
-      );
-    }
-
-      if (dateFilter !== 'all') {
-            const today = new Date();
-            today.setHours(0, 0, 0, 0); 
-
-            jobsToShow = jobsToShow.filter(job => {
-                const jobDate = new Date(job.posted_ago);
-                const diffTime = today.getTime() - jobDate.getTime();
-                const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
-
-                switch (dateFilter) {
-                    case 'today':
-                        return diffDays === 0;
-                    case 'yesterday':
-                        return diffDays === 1;
-                    case '3days':
-                        return diffDays <= 3;
-                    case '7days':
-                        return diffDays <= 7;
-                    case '1month':
-                        return diffDays <= 30;
-                    default:
-                        return true;
-                }
-            });
-        }
-
-    setFilteredJobs(jobsToShow);
-  }, [searchTerm,activeFilters,dateFilter]);
-
-
-    const handleSearchInputChange = (event) => {  
-      setSearchTerm(event.target.value);
+    const handleSearchInputChange = (event) => {
+    setSearchTerm(event.target.value);
   };
 
+    const filteredJobs = jobsData.filter(job => {
+    const { location, employmentType } = activeFilters;
+
+  const searchMatch = searchTerm.trim() === '' ||
+      (job.title && job.title.toLowerCase().includes(searchTerm.toLowerCase()));
+
+    const employmentMatch = employmentType.length === 0 ||
+      (job.employmentType && employmentType.map(f => f.toLowerCase()).includes(job.employmentType.toLowerCase()));
+
+    const scheduleMatch = location.length === 0 ||
+      (job.location && location.map(f => f.toLowerCase()).includes(job.location.toLowerCase()));
+
+    let dateMatch = true; 
+    if (dateFilter !== 'all') {
+      const today = new Date();
+      today.setHours(0, 0, 0, 0);
+      const jobDate = new Date(job.posted_ago);
+      const diffTime = today.getTime() - jobDate.getTime();
+      const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
+
+      switch (dateFilter) {
+        case 'today': dateMatch = diffDays === 0; break;
+        case 'yesterday': dateMatch = diffDays === 1; break;
+        case '3days': dateMatch = diffDays <= 3; break;
+        case '7days': dateMatch = diffDays <= 7; break;
+        case '1month': dateMatch = diffDays <= 30; break;
+        default: dateMatch = true;
+      }
+    }
+
+    return searchMatch && employmentMatch && scheduleMatch && dateMatch;
+  });
+
+   const areFiltersApplied = activeFilters.location.length > 0 || activeFilters.employmentType.length > 0;
+
+  
 
     const noJobsFoundStyle = {
      textAlign: 'center',
@@ -112,6 +96,7 @@ const areFiltersActive = activeFilters.workingSchedule.length > 0 || activeFilte
 
   return (
     <>
+    <section id="apply" ref={ref}> 
     <div className="general-job">
     <div className="job-container">
       <div className="job-list-header">
@@ -142,7 +127,8 @@ const areFiltersActive = activeFilters.workingSchedule.length > 0 || activeFilte
 
       </div>
       </div>
-      
+        <div className="page-with-sidebar">
+        <aside className="filters-sidebar">
           <div className="same-same">
             <Filters className= "filters-desktop"  
             activeFilters={activeFilters}
@@ -152,6 +138,9 @@ const areFiltersActive = activeFilters.workingSchedule.length > 0 || activeFilte
               onDateFilterChange={handleDateFilterChange}
 
             />
+            </div>
+            </aside>
+
            <div className="job-listings">
          {filteredJobs.length > 0 ? (
           filteredJobs.map(job => (
@@ -171,7 +160,7 @@ const areFiltersActive = activeFilters.workingSchedule.length > 0 || activeFilte
           </div>
       </div>
       
-
+       <div className="pig-nav">
         <div className="pagination">
           <div className="show-entries">
             <span>Show</span>
@@ -195,8 +184,10 @@ const areFiltersActive = activeFilters.workingSchedule.length > 0 || activeFilte
           </div>
         </div>
         </div>
+        </div>
+        </section>
       </>
 );
-};
+});
 
 export default JobCard

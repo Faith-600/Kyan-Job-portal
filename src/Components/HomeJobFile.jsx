@@ -1,4 +1,4 @@
-import React,{useState} from 'react';
+import React,{useState,useEffect,useCallback} from 'react';
 import { MdVerified } from 'react-icons/md';
 import { BsBriefcase, BsCalendarDate } from 'react-icons/bs';
 import { HiOutlineUser } from 'react-icons/hi';
@@ -18,7 +18,6 @@ const HomeJobFile = ({
         <img src={avatar} alt={`${title} avatar`} className="job-hero-avatar" />
       </div>
 
-      {/* NEW: A wrapper for the main content to create a column */}
       <div className="job-main-content">
         <div className="job-title-group">
           <h2 className="job-title">{title}</h2>
@@ -54,64 +53,87 @@ const HomeJobFile = ({
   );
 };
 
-// Your JobListings component is perfectly fine, just rename the container class
 
 const VISIBLE_STACK_COUNT = 4; 
+const CARD_CHANGE_INTERVAL_MS = 3000; 
 
 const JobListings = ({ jobs }) => {
 
    const [activeIndex, setActiveIndex] = useState(0);
+     const [isPaused, setIsPaused] = useState(false);
+
 
   if (!jobs || jobs.length === 0) {
-    return null; // Don't render anything if there are no jobs
+    return null; 
   }
 
-  // --- The core logic is in this handler ---
-  const handleNextCard = () => {
-    // Increment the index, and loop back to 0 if we're at the end
+   const handleNextCard = useCallback(() => {
     setActiveIndex((prevIndex) => (prevIndex + 1) % jobs.length);
-  };
+  }, [jobs.length]);
 
+    useEffect(() => {
+    if (isPaused || jobs.length === 0) {
+      return;
+    }
+        const timerId = setInterval(handleNextCard, CARD_CHANGE_INTERVAL_MS);
+   return () => {
+      clearInterval(timerId);
+    };
+  }, [handleNextCard, isPaused]);
 
   return (
-    <div className="job-listings-container">
+    <div className="job-listings-container"
+        onMouseEnter={() => setIsPaused(true)}
+      onMouseLeave={() => setIsPaused(false)}
+    >
         {jobs.map((job, index) => {
 
-         const distance = (index - activeIndex + jobs.length) % jobs.length;
+         const isExiting = index === (activeIndex - 1 + jobs.length) % jobs.length;
+
+        let offset = index - activeIndex;
+        const half = Math.floor(jobs.length / 2);
+        if (offset > half) offset -= jobs.length;
+        if (offset < -half) offset += jobs.length;
 
         let style = {};
 
-
-        if (distance === 0) {
+        if (offset === 0) {
           style = {
             transform: 'scale(1)',
-            zIndex: jobs.length, // Highest z-index
+            zIndex: jobs.length,
             opacity: 1,
           };
-        } else if (distance < VISIBLE_STACK_COUNT) {
-          style = {
-            transform: `translateY(${distance * -15}px) scale(${1 - distance * 0.04})`,
-            zIndex: jobs.length - distance,
-            opacity: 1 - distance * 0.2, // Keep them visible
-          };
-        } else {
-          const lastVisibleCard = VISIBLE_STACK_COUNT - 1;
-          style = {
-            transform: `translateY(${lastVisibleCard * -15}px) scale(${1 - lastVisibleCard * 0.04})`,
-            zIndex: 0,
-            opacity: 0, // Completely hidden
-          };
+        } else if (offset > 0) {
+          // Case 2: Upcoming cards (TOP STACK). This is your original logic.
+          if (offset < VISIBLE_STACK_COUNT) {
+            style = {
+              transform: `translateY(${-offset * 15}px) scale(${1 - offset * 0.04})`,
+              zIndex: jobs.length - offset,
+              opacity: 1 - offset * 0.2,
+            };
+          } else {
+            // Cards too far in the future are hidden.
+            style = { transform: `translateY(${-VISIBLE_STACK_COUNT * 15}px)`, opacity: 0, zIndex: 0 };
+          }
+        } else { // offset < 0
+          // Case 3: Viewed cards (BOTTOM STACK). This is the new logic.
+          const absOffset = Math.abs(offset);
+          if (absOffset < VISIBLE_STACK_COUNT) {
+             style = {
+              transform: `translateY(${absOffset * 15}px) scale(${1 - absOffset * 0.04})`,
+              zIndex: jobs.length - absOffset,
+              opacity: 1 - absOffset * 0.2,
+            };
+          } else {
+            style = { transform: `translateY(${VISIBLE_STACK_COUNT * 15}px)`, opacity: 0, zIndex: 0 };
+          }
         }
-                // --- Card that was just dismissed ---
-        // We find the previous card to give it a "fly away" animation
-        const isExiting = index === (activeIndex - 1 + jobs.length) % jobs.length;
-
         return (
           <div
             key={job.id}
             className={`stack-card ${isExiting ? 'exiting' : ''}`}
             style={style}
-            onClick={distance === 0 ? handleNextCard : undefined}
+            onClick={offset === 0 ? handleNextCard : undefined}
           >
 
 
