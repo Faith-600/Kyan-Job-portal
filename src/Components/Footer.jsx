@@ -106,7 +106,7 @@ const Footer = React.forwardRef((props,ref) => {
         <div className="footer-bottom">
             <div className="footer-contact">
                 <span><MdOutlineCall size={25}/>
- +234 906 804 7015</span>
+ +234 703 192 0023</span>
                 <span><CiMail size={25}/>
                  <a
             href="mailto:contact@kyanbrands.org"

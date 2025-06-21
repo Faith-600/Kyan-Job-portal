@@ -34,7 +34,7 @@ return (
       </div>
     <div className="filters-group-container">
     <div className="filter-group">
-      <h4>Working schedule</h4>
+      <h4>Working {"\n"}schedule</h4>
       <div className="checkbox-item"><input type="checkbox" id="onsite" 
        checked={activeFilters.location.includes('Onsite')}
       onChange={() => handleCheckboxChange('location', 'Onsite')}
@@ -50,7 +50,7 @@ return (
       /><label htmlFor="hybrid">Hybrid</label></div>
     </div>
     <div className="filter-group">
-      <h4>Employment type</h4>
+      <h4>Employment {"\n"}type</h4>
       <div className="checkbox-item"><input type="checkbox" id="full-time" 
       checked={activeFilters.employmentType.includes('Full-time')}
         onChange={() => handleCheckboxChange('employmentType', 'Full-time')}

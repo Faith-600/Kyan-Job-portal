@@ -96,11 +96,15 @@ const toggleFilterVisibility = () => {
 
   return (
     <>
-    <section id="apply" ref={ref}> 
-    <div className="general-job">
-    <div className="job-container">
-      <div className="job-list-header">
+    <section id="apply" ref={ref} className="job-portal-page" > 
+      {/* === HEADER SECTION === */}
+      <header className="portal-header">
+        <div className="text-container">
         <h2>Job Recommendations for you</h2>
+         <h6>All applicants are expected to read the company’s profile before applying.
+            It gives insight into our values, structure, expectations, and
+             how we work — so you’re fully informed before submitting your application.</h6>
+             </div>
         <div className="controls-container">
           <div className="search-bar">
             <input type="text" placeholder="Search..."
@@ -123,11 +127,12 @@ const toggleFilterVisibility = () => {
  />}
           </div>
 
-        </div>
 
-      </div>
-      </div>
-        <div className="page-with-sidebar">
+          </div>
+      </header>
+            {/* === MAIN LAYOUT GRID (THE CORE FIX) === */}
+               <div className="main-layout-grid">
+             {/* <div className="page-with-sidebar"> */}
         <aside className="filters-sidebar">
           <div className="same-same">
             <Filters className= "filters-desktop"  
@@ -140,9 +145,12 @@ const toggleFilterVisibility = () => {
             />
             </div>
             </aside>
+        
+                {/* --- 2. MAIN CONTENT AREA (NEW WRAPPER) --- */}
 
-           <div className="job-listings">
-         {filteredJobs.length > 0 ? (
+           <main className="main-content-area">
+            <div className="job-listings">
+           {filteredJobs.length > 0 ? (
           filteredJobs.map(job => (
             <JobList key={job.id} job={job} />
           ))
@@ -158,10 +166,8 @@ const toggleFilterVisibility = () => {
               </div>
             )}
           </div>
-      </div>
       
-       <div className="pig-nav">
-        <div className="pagination">
+          <div className="pagination-footer">
           <div className="show-entries">
             <span>Show</span>
             <select>
@@ -182,9 +188,9 @@ const toggleFilterVisibility = () => {
               <IoMdArrowDropright size={20} />
             </button>
           </div>
-        </div>
-        </div>
-        </div>
+          </div>
+        </main>
+       </div>
         </section>
       </>
 );

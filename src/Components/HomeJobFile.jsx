@@ -104,25 +104,22 @@ const JobListings = ({ jobs }) => {
             opacity: 1,
           };
         } else if (offset > 0) {
-          // Case 2: Upcoming cards (TOP STACK). This is your original logic.
           if (offset < VISIBLE_STACK_COUNT) {
             style = {
               transform: `translateY(${-offset * 15}px) scale(${1 - offset * 0.04})`,
               zIndex: jobs.length - offset,
-              opacity: 1 - offset * 0.2,
+              opacity: 1.2 - offset * 0.2,
             };
           } else {
-            // Cards too far in the future are hidden.
             style = { transform: `translateY(${-VISIBLE_STACK_COUNT * 15}px)`, opacity: 0, zIndex: 0 };
           }
-        } else { // offset < 0
-          // Case 3: Viewed cards (BOTTOM STACK). This is the new logic.
+        } else {
           const absOffset = Math.abs(offset);
           if (absOffset < VISIBLE_STACK_COUNT) {
              style = {
               transform: `translateY(${absOffset * 15}px) scale(${1 - absOffset * 0.04})`,
               zIndex: jobs.length - absOffset,
-              opacity: 1 - absOffset * 0.2,
+              opacity: 1.2 - absOffset * 0.2,
             };
           } else {
             style = { transform: `translateY(${VISIBLE_STACK_COUNT * 15}px)`, opacity: 0, zIndex: 0 };

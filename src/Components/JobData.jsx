@@ -92,7 +92,7 @@ const jobsData = [
         "Monthly salary of ₦50,000",
        "Flexible remote working structure",
        "Exposure to creative brand projects and client work",  
-        "Opportunity to grow with a fast-rising creative agency",
+      "Opportunity to grow with a fast-rising  creative agency",
       "Training and mentorship in brand communication, client management, and content planning",
        "Possible performance-based bonuses or project allowances"
       ],
@@ -146,7 +146,7 @@ const jobsData = [
   {
     id: 5,
     avatar: 'Avatar Image4.png', 
-    title: 'UI/UX Designer',
+    title: 'UI/UX \n Designer',
     description: 'We\'re looking for a creative and user-focused UI/UX Designer to \n join our team! If you love crafting intuitive  interfaces, designing seamless \n user  experiences, and  turning ideas into functional visuals, this \n is the perfect  opportunity to bring your skills to life.',
     level: 'Any Level',
     location: 'Remote',

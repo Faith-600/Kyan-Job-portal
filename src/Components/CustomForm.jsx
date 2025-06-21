@@ -7,11 +7,13 @@ import { ImSpinner2 } from "react-icons/im";
 
 
 export default function CustomForm({ jobTitle, onSuccess }) {
-  const [formData, setFormData] = useState({});
+ const [formData, setFormData] = useState({otherToolText: ""}); 
+  // const [formData, setFormData] = useState({});
   const [file, setFile] = useState(null);
   const [alert, setAlert] = useState({ show: false, message: "", type: "" });
   const alertTimerRef = useRef(null);
   const [isSubmitting, setIsSubmitting] = useState(false);
+    const [showOtherToolInput, setShowOtherToolInput] = useState(false);
 
   
   useEffect(() => {
@@ -66,10 +68,21 @@ export default function CustomForm({ jobTitle, onSuccess }) {
             return { ...prev, [name]: currentValues.filter((item) => item !== value) };
         }
         });
+
+         if (name === 'tools' && value === 'Other') {
+        setShowOtherToolInput(checked);
+        if (!checked) {
+          setFormData(prev => ({...prev, otherToolText: ''}));
+        }
+      }
     } else {
         setFormData((prev) => ({ ...prev, [name]: value }));
     }
+    
   };
+
+ 
+
 
   const toBase64 = (file) =>
     new Promise((resolve, reject) => {
@@ -173,10 +186,11 @@ export default function CustomForm({ jobTitle, onSuccess }) {
         </div>
       </div>
 
-         {/* === Tools Section (Corrected) === */}
+         {/* === Tools Section === */}
       <div className="form-group">
         <label className="form-label-heading">Which of the following tools have you used before?</label>
         <div className="checkbox-rows-wrapper">
+          <div className="main-checkbox">
           <div className="checkbox-row">
             {['Google Drive / Google Docs / Google Sheets', 'Trello', 'Notion', 'WhatsApp', 'Instagram'].map(tool => (
               <label key={tool} className="checkbox-label-inline">
@@ -198,6 +212,17 @@ export default function CustomForm({ jobTitle, onSuccess }) {
               <input type="checkbox" name="tools" value="Other" onChange={handleChange}  /> 
               <span >Others</span>
             </label>
+             {showOtherToolInput && (
+                <input
+                  type="text"
+                  name="otherToolText"
+                  className="other-tool-input"
+                  placeholder="Please specify"
+                  value={formData.otherToolText || ''}
+                  onChange={handleChange}
+                />
+              )}
+          </div>
           </div>
         </div>
       </div>
@@ -265,6 +290,14 @@ export default function CustomForm({ jobTitle, onSuccess }) {
             )}
             <input id="cv" type="file" name="cv" className="file-input-hidden" onChange={handleChange} accept=".pdf,.doc,.docx" />
           </label>
+        </div>
+        <div className="form-group">
+          <label className="form-label-heading">Have you gone through our company profile?</label>
+          <div className="form-options-container">
+            <label className="radio-label"><input type="radio" name="availability" value="Yes" onChange={handleChange} /> Yes</label>
+            <label className="radio-label"><input type="radio" name="availability" value="No" onChange={handleChange} /> No</label>
+            <label className="radio-label"><input type="radio" name="availability" value="In Progress" onChange={handleChange} /> In Progress</label>
+          </div>
         </div>
       </div>
       
