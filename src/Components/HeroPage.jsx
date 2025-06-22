@@ -1,11 +1,21 @@
-import React from "react";
+import React,{useState} from "react";
 import { IoDownloadOutline } from "react-icons/io5";
 import HomeJobFile from "./HomeJobFile";
 import JobListings from "./HomeJobFile";
 import jobs from "./HomeJob";
-import {useInView} from 'react-intersection-observer'
+import ProfileDownloadModal from "./ProfileDownloadModal";
+
 
 const HeroPage = React.forwardRef((props,ref) => {
+ const [isModalOpen, setIsModalOpen] = useState(false);
+  const openModal = () => {
+       console.log("Button clicked! Setting isModalOpen to true."); 
+
+     setIsModalOpen(true);
+  }
+   
+  const closeModal = () => setIsModalOpen(false);
+
 return (
     <>
     <div className="hero-Content">
@@ -15,12 +25,14 @@ return (
   {'\n'}innovation and impact. Join us to grow your skills, build meaningful brands,
   {'\n'}and contribute to solutions that truly make a difference.
       </p>
-     <a href="/myfile.pdf" download="companyProfile.pdf" className="company-profile-btn">
-       <h6> Download  Company Profile{" "}</h6>
+        <button 
+          type="button"
+        onClick={openModal} className="company-profile-btn">
+          <h6>Download Company Profile</h6>
           <span className="download-icon" role="img" aria-label="download">
-           <IoDownloadOutline />
+            <IoDownloadOutline />
           </span>
-        </a>
+        </button>
      <div>
        
         </div>
@@ -29,10 +41,12 @@ return (
     </div>
     </div>
     
+     <ProfileDownloadModal 
+        isOpen={isModalOpen} 
+        onClose={closeModal} 
+      />
    
-  
-
-  </>
+</>
  
   );
 });
