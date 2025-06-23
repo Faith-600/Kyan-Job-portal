@@ -293,9 +293,9 @@ export default function CustomForm({ jobTitle, onSuccess }) {
         <div className="form-group">
           <label className="form-label-heading">Have you gone through our company profile?</label>
           <div className="form-options-container">
-            <label className="radio-label"><input type="radio" name="availability" value="Yes" onChange={handleChange} /> Yes</label>
-            <label className="radio-label"><input type="radio" name="availability" value="No" onChange={handleChange} /> No</label>
-            <label className="radio-label"><input type="radio" name="availability" value="In Progress" onChange={handleChange} /> In Progress</label>
+            <label className="radio-label"><input type="radio" name="profileReviewed" value="Yes" onChange={handleChange}  /> Yes</label>
+            <label className="radio-label"><input type="radio" name="profileReviewed" value="No" onChange={handleChange} /> No</label>
+            <label className="radio-label"><input type="radio" name="profileReviewed" value="In Progress" onChange={handleChange} /> In Progress</label>
           </div>
         </div>
       </div>
