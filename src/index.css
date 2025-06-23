@@ -240,7 +240,10 @@ html {
    margin-top: 20px;
    transition: transform 0.3s ease;
      z-index: 10;   
+}
 
+.company-profile-btn:hover{
+  transform: scale(1.1);
 }
 
 
@@ -295,19 +298,39 @@ border-radius: 50px
   left: 0;
   width: 100%; 
   height: 100%;
-  border: 3px solid transparent;
-  border-top-color: #111827; 
+  animation: spin 2s linear infinite;
+}
 
-  border-radius: 50%; 
-  animation: spin 1s linear infinite;
+.loading-spinner svg {
+  width: 100%;
+  height: 100%;
+}
+.loading-spinner circle {
+  fill: none;
+  stroke: #081424;
+  stroke-width: 2; 
+  stroke-linecap: round;
+   animation: dash 1.5s ease-in-out infinite;
 }
 
 @keyframes spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
+ 100% {
     transform: rotate(360deg);
+  }
+}
+
+@keyframes dash {
+  0% {
+    stroke-dasharray: 1, 200;
+    stroke-dashoffset: 0;
+  }
+  50% {
+    stroke-dasharray: 90, 200;
+    stroke-dashoffset: -35;
+  }
+  100% {
+    stroke-dasharray: 90, 200;
+    stroke-dashoffset: -124;
   }
 }
 
@@ -1735,12 +1758,11 @@ font-size: 17px;
 .success-message {
   display: flex;
   flex-direction: column;
-  align-items: center;
-  text-align: center;
   padding: 1rem 1rem;
   height: 60vh;
+  }
   
-} 
+ 
 
  .success-icon-wrapper {
   width: 80px;
@@ -1753,6 +1775,8 @@ font-size: 17px;
   color: #34d399;
   font-size: 2.5rem;
   margin-bottom: 1.5rem;
+  margin-left: auto;
+  margin-right: auto;
 } 
 
 .success-message h2 {

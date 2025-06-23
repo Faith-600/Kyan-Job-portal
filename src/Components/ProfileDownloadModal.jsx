@@ -25,17 +25,30 @@ const ProfileDownloadModal = ({ isOpen, onClose }) => {
   };
 
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async(e) => {
     e.preventDefault();
     setIsLoading(true);
- console.log("Submitting User Details:", formData);
 
+    const SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbyupccu0e2_IcOHnDssiWmCrtFAjKY-Ko2ZnKbxXeHaYA0VR8WQyEYsqLS9zx215rP_/exec';
   
-    setTimeout(() => {
-      setIsLoading(false);
-      setIsSubmitted(true);
-    }, 1500);
-
+    try {
+    const response = await fetch(SCRIPT_URL, {
+      method: 'POST',
+      mode: 'no-cors', 
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(formData)
+    });
+ 
+      setIsSubmitted(true); 
+    
+  } catch (error) {
+    console.error("An error occurred:", error);
+    alert('An error occurred while submitting. Please try again.');
+  } finally {
+    setIsLoading(false);
+  }
    
   };
   const handleClose = () => {
@@ -111,7 +124,7 @@ const ProfileDownloadModal = ({ isOpen, onClose }) => {
           <>
             <div className="success-message">
               <div className="success-icon-wrapper">
-                <FaCheck />
+                <FaCheck  className='success-icon'/>
               </div>
               <h2>Thank You! Check Your Mail</h2>
               <p>

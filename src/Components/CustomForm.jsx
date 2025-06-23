@@ -8,7 +8,6 @@ import { ImSpinner2 } from "react-icons/im";
 
 export default function CustomForm({ jobTitle, onSuccess }) {
  const [formData, setFormData] = useState({otherToolText: ""}); 
-  // const [formData, setFormData] = useState({});
   const [file, setFile] = useState(null);
   const [alert, setAlert] = useState({ show: false, message: "", type: "" });
   const alertTimerRef = useRef(null);
@@ -288,7 +287,7 @@ export default function CustomForm({ jobTitle, onSuccess }) {
                 <FaTimes />
               </button>
             )}
-            <input id="cv" type="file" name="cv" className="file-input-hidden" onChange={handleChange} accept=".pdf,.doc,.docx" />
+            <input id="cv" type="file" name="cv" className="file-input-hidden" onChange={handleChange} accept=".pdf,.doc,.docx" required />
           </label>
         </div>
         <div className="form-group">
