@@ -7,11 +7,9 @@ import ProfileDownloadModal from "./ProfileDownloadModal";
 
 
 const HeroPage = React.forwardRef((props,ref) => {
- const [isModalOpen, setIsModalOpen] = useState(false);
+ const [isModalOpen, setIsModalOpen] = useState(true);
   const openModal = () => {
-       console.log("Button clicked! Setting isModalOpen to true."); 
-
-     setIsModalOpen(true);
+    setIsModalOpen(true);
   }
    
   const closeModal = () => setIsModalOpen(false);
@@ -19,7 +17,7 @@ const HeroPage = React.forwardRef((props,ref) => {
 return (
     <>
     <div className="hero-Content">
-    <h1>Kyan Brands Job Portal</h1>
+    <h1>Kyan Brands {'\n'}Job Portal</h1>
     <p>
      We’re more than a creative agency — we’re a team driven by purpose,
   {'\n'}innovation and impact. Join us to grow your skills, build meaningful brands,

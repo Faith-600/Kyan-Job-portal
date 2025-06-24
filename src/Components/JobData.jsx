@@ -119,7 +119,7 @@ const jobsData = [
   {
     id: 2,
     avatar: 'Avatar Image1.png', 
-    title: 'Brand & Media Creative Designer',
+    title: 'Brand & Media \n Creative Designer',
     description: 'We\'re looking for a creative and skilled Creative Designer to join our team! \n If you have a passion for  visual storytelling, love crafting compelling brand  identities,\n and thrive in a fast-paced creative environment, this role is made for you.',
     level: 'Any Level',
     location: 'Remote',
@@ -128,7 +128,7 @@ const jobsData = [
   {
     id: 3,
     avatar: 'Avatar Image2.png', 
-    title: 'Frontend Developer',
+    title: 'Frontend \n Developer',
     description: 'We are looking for a talented Frontend Developer to join our team! \n If you are passionate about building  beautiful, responsive,and user-friendly \n web applications, this is the perfect opportunity for you.',
     level: 'Any Level',
     location: 'Remote',
@@ -137,7 +137,7 @@ const jobsData = [
   {
     id: 4,
     avatar: 'Avatar Image3.png',
-    title: 'Backend Developer',
+    title: 'Backend\n Developer',
     description: 'We\'re looking for a smart and solutions-driven  Backend Developer to \n  join our team!  If you enjoy  building  efficient systems, untangling APIs, \n and solving complex problems behind the scenes, this is  a great \n opportunity to grow with us.',
     level: 'Any Level',
     location: 'Remote',

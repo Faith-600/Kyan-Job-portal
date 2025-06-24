@@ -108,7 +108,7 @@ const JobListings = ({ jobs }) => {
             style = {
               transform: `translateY(${-offset * 15}px) scale(${1 - offset * 0.04})`,
               zIndex: jobs.length - offset,
-              opacity: 1.2 - offset * 0.2,
+              opacity: 0.5 - offset * 0.2,
             };
           } else {
             style = { transform: `translateY(${-VISIBLE_STACK_COUNT * 15}px)`, opacity: 0, zIndex: 0 };
@@ -119,7 +119,7 @@ const JobListings = ({ jobs }) => {
              style = {
               transform: `translateY(${absOffset * 15}px) scale(${1 - absOffset * 0.04})`,
               zIndex: jobs.length - absOffset,
-              opacity: 1.2 - absOffset * 0.2,
+              opacity: 0.5 - absOffset * 0.2,
             };
           } else {
             style = { transform: `translateY(${VISIBLE_STACK_COUNT * 15}px)`, opacity: 0, zIndex: 0 };

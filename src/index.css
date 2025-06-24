@@ -136,7 +136,7 @@ html {
   left: 50%;
   transform: translateX(-50%);
   background-color: white;
-  border: 1px solid #655F5F;
+  border: 1px solid #d1c7c7;
   border-radius: 30px;
   min-width: 250px;
   padding: 10px 20px;
@@ -172,10 +172,10 @@ html {
   padding: 5px 0;
   position: relative;
   transition: color 0.3s ease;
-} 
+ } 
 
   .nav-links li.active a::after {
-  width: 100%;
+  width: 20px;
       }
 
       .nav-links li a::after {
@@ -184,7 +184,7 @@ html {
   bottom: 0;
   left: 50%;
   transform: translateX(-50%); 
-  height: 1.5px;
+  height: 2px;
   background-color: black;
   width: 0;
   transition: width 0.4s ease-in-out;
@@ -262,77 +262,79 @@ html {
   justify-content: center;  
   align-items: center;
   }
-/* LOADING */
 
+
+/* LOADING */
 .loading-container {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
   display: flex;
   justify-content: center;
   align-items: center;
-  background-color: #f8f9fa; 
-  z-index: 9999; 
+  min-height: 100vh;
+  background-color: #f7f9fa;
 }
 
-.loading-content {
-  position: relative; 
+.spinner-and-logo-wrapper {
+  position: relative;
   display: flex;
   justify-content: center;
   align-items: center;
-  width: 90px;
-  height: 90px;
-  }
+}
 
-.loading-logo {
+.logo {
+  position: absolute; 
+  width: 60px;     
+  height: 60px;     
+  border-radius: 50%; 
+  object-fit: cover; 
+}
+
+
+.meet-spinner {
   width: 70px;
   height: 70px;
-border-radius: 50px
+  animation: spinner-rotate 2s linear infinite;
 }
 
-.loading-spinner {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%; 
-  height: 100%;
-  animation: spin 2s linear infinite;
-}
-
-.loading-spinner svg {
-  width: 100%;
-  height: 100%;
-}
-.loading-spinner circle {
+.spinner-track,
+.spinner-head {
   fill: none;
-  stroke: #081424;
-  stroke-width: 2; 
-  stroke-linecap: round;
-   animation: dash 1.5s ease-in-out infinite;
+  stroke-width: 4px; 
 }
 
-@keyframes spin {
- 100% {
+.spinner-track {
+  stroke: rgba(66, 133, 244, 0.2); 
+}
+
+.spinner-head {
+  stroke: #081424;
+  stroke-linecap: round;
+  animation: spinner-dash 1.5s ease-in-out infinite;
+}
+
+/* --- KEYFRAMES --- */
+
+@keyframes spinner-rotate {
+  100% {
     transform: rotate(360deg);
   }
 }
 
-@keyframes dash {
+@keyframes spinner-dash {
   0% {
-    stroke-dasharray: 1, 200;
+    stroke-dasharray: 1, 207;
     stroke-dashoffset: 0;
   }
   50% {
-    stroke-dasharray: 90, 200;
-    stroke-dashoffset: -35;
+    stroke-dasharray: 124, 207;
+    stroke-dashoffset: -48;
   }
   100% {
-    stroke-dasharray: 90, 200;
-    stroke-dashoffset: -124;
+    stroke-dasharray: 124, 207;
+    stroke-dashoffset: -171;
   }
 }
+
+
 
 /* Job Hero Wrapper Container */
 .job-listings-container {
@@ -358,7 +360,7 @@ border-radius: 50px
 }
 
 .stack-card.exiting {
-  transform: translateY(-200px) scale(1.1) !important;
+  transform: translateY(-50px) scale(1.1) !important;
    opacity: 0 !important;
 }
 
@@ -476,11 +478,14 @@ body {
 
 .filter-content {
   display: flex;
+   height: 91vh;
+     max-height: 850px;    
+
   
  }
 
   .filters-card {
-    flex: 0 0 250px; 
+    flex: 0 0 200px; 
   background-color:white;
   border-radius: 12px;
   padding: 24px;
@@ -566,7 +571,7 @@ input[type="radio"]:checked {
 
 .portal-header {
   display: flex;
-  max-width: 1390px;
+  max-width: 1170px;
   justify-content: space-between; 
   align-items: center; 
   gap: 2rem; 
@@ -579,9 +584,9 @@ input[type="radio"]:checked {
 
 .main-layout-grid {
   display: grid;
-  grid-template-columns: 250px 1fr;
+  grid-template-columns: 200px 1fr;
    gap: 1rem;
-    max-width: 1420px;
+    max-width: 1200px;
   margin: 0 auto;
   padding: 1rem;
 }
@@ -651,7 +656,7 @@ input[type="radio"]:checked {
   grid-template-columns: 200px 1fr;
   gap: 32px; 
    align-items: start;
-  max-width: 1400px;
+  max-width: 1200px;
   margin: 0 auto;
   padding: 24px;
 } 
@@ -738,10 +743,10 @@ input[type="radio"]:checked {
   color: #ffffff;
   border: none;
   border-radius: 8px;
-  font-size: 0.8rem;
+  font-size: 0.6rem;
   font-weight: 600;
   cursor: pointer;
-  width: 100px;
+  width: 120px;
   transition: background-color 0.2s ease-in-out;
   display: flex;
   align-items: center;
@@ -789,7 +794,7 @@ input[type="radio"]:checked {
 
 .show-entries select {
   border-radius: 4px;
-  border: 2px solid black;
+  border: 1px solid rgb(37, 36, 36);
   padding: 2px;
  
 }
@@ -1556,7 +1561,6 @@ font-size: 17px;
   }
 }
 
-/* The main floating button */
 .whatsapp-float {
   position: fixed;
   bottom: 40px;   
@@ -1577,7 +1581,11 @@ font-size: 17px;
 
 .whatsapp-float:hover {
   transform: scale(1.1);
-  animation-play-state: paused; 
+    animation: none; 
+  box-shadow: 
+   0 0 5px rgba(255, 255, 255, 0.6),
+  0 0 15px rgba(255, 255, 255, 0.7),
+  0 0 25px rgba(255, 255, 255, 0.8);
 }
 
 
@@ -1662,7 +1670,6 @@ font-size: 17px;
   font-size: 16px;
   font-weight: 700;
   margin-top: 0;
-  margin-bottom: 0.5rem;
 } 
  .modal-content p {
   color: #111B29;
@@ -1689,7 +1696,6 @@ font-size: 17px;
   font-size: 013px;
   font-weight: 500;
   color: #111B29;
-  margin-bottom: 0.5rem;
 } 
 
 .input-with-icon {
@@ -1833,6 +1839,10 @@ font-size: 17px;
     cover, cover,        
     50px 50px, 50px 50px; 
   
+}
+
+  .hero-Content h1{
+  line-height: 1;
 }
 
   .filter-wrapper {
@@ -2228,7 +2238,7 @@ font-size: 17px;
    .job-info h3 {
         grid-area: title;
          font-weight: 700;
-         font-size: 25px;
+         font-size: 20px;
          white-space: pre-line;
         }
 
@@ -2282,6 +2292,7 @@ font-size: 17px;
   line-height: 1.6;
   align-self: start; 
   }
+
   .job-info .job-meta {
   grid-area: meta; 
   display: flex;
@@ -2312,15 +2323,16 @@ font-size: 17px;
  
  .hero-Content p{
       white-space: normal;
-      padding: 0 15px;
+      padding: 0 20px;
+      text-align:justify;
+      font-size: 15px;
   }
 
    .hero-Content h1{
   font-size: 55px;
-  margin-top: 70px;
   padding:5px ;
-
-   }
+  line-height: 1;
+}
  
 
 .company-profile-btn{
@@ -2412,24 +2424,25 @@ font-size: 1.1rem;
       height: 200px;  
      
   }
-  .sidebar-nav button {
+  /* .sidebar-nav button {
     width: 120px;
     justify-content: center;
-  }
+    background-color: red;
+  } */
  
 
   .content-box{
-
-    width: auto; 
+   width: auto; 
    }
 
-   .sidebar-nav button {
+   /* .sidebar-nav button {
  width:130px;
 justify-content: start;
- }
+ } */
 
  .details-main-content p {
   white-space: normal;
+  
  }
     .form-grid, .tasks-grid {
     grid-template-columns: 1fr;
@@ -2456,8 +2469,6 @@ justify-content: start;
   border: 1px solid #d1d5db;
   gap: 0;
 }
-
-
 
 
 }

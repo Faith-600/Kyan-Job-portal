@@ -2,13 +2,20 @@
 const LoadingPage = () => {
   return (
     <div className="loading-container">
-      <div className="loading-content">
-        <img src="/kyan-icon.jpg" alt="Company Logo" className="loading-logo" />
-        <div className="loading-spinner">
-            <svg viewBox="25 25 50 50">
-        <circle cx="50" cy="50" r="20"></circle>
-      </svg>
-        </div>
+     
+      <div className="spinner-and-logo-wrapper">
+
+        <svg className="meet-spinner" viewBox="0 0 70 70">
+          <circle className="spinner-track" cx="35" cy="35" r="33"></circle>
+          <circle className="spinner-head" cx="35" cy="35" r="33"></circle>
+        </svg>
+
+        <img
+          src="/kyan-icon.jpg"
+          className="logo" 
+          alt="Company Logo"
+        />
+        
       </div>
     </div>
   );
