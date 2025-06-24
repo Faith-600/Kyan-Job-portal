@@ -2044,15 +2044,16 @@ font-size: 17px;
   .nav-links li {
     font-size: 14px;
   }
-
+/* 
   .company-profile-btn {
    height: 50px;
    gap: 10px;
    font-size: 10px;
-}
+} */
+
+
  .stack-card {
   top:10px;
-
 }
 
 .footer-newsletter {
@@ -2323,7 +2324,7 @@ font-size: 17px;
  
  .hero-Content p{
       white-space: normal;
-      padding: 0 20px;
+      padding: 0 25px;
       text-align:justify;
       font-size: 15px;
   }
@@ -2336,13 +2337,14 @@ font-size: 17px;
  
 
 .company-profile-btn{
-  padding: 10px;
+  padding: 12px;
   font-size: 15px;
   margin-bottom: 10px;
+  gap: 15px;
    }
 
 .download-icon{
-   font-size: 20px;
+   font-size: 15px;
   border-radius: 15px;
   color: black;
   height: 30px;
@@ -2469,6 +2471,14 @@ justify-content: start;
   border: 1px solid #d1d5db;
   gap: 0;
 }
+ .modal-content h2 {
+  font-size: 14px;
+ 
+} 
+ .modal-content p {
+  font-size: 13px;
+ 
+} 
 
 
 }
