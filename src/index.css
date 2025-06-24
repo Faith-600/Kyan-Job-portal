@@ -478,11 +478,7 @@ body {
 
 .filter-content {
   display: flex;
-   height: 91vh;
-     max-height: 850px;    
-
-  
- }
+      }
 
   .filters-card {
     flex: 0 0 200px; 
@@ -490,6 +486,8 @@ body {
   border-radius: 12px;
   padding: 24px;
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+   min-height: 660px;
+
   }
 
 .filters-header {
@@ -589,12 +587,15 @@ input[type="radio"]:checked {
     max-width: 1200px;
   margin: 0 auto;
   padding: 1rem;
+  
+
 }
 
 .main-content-area {
   display: flex;
   flex-direction: column;
   min-width: 0; 
+   
 }
 
 .job-listings {
