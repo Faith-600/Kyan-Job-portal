@@ -7,7 +7,9 @@ import { ImSpinner2 } from "react-icons/im";
 import { MdDownloading } from "react-icons/md";
 
 
-
+const SERVICE_ID = 'YOUR_SERVICE_ID';
+const TEMPLATE_ID = 'YOUR_TEMPLATE_ID';
+const PUBLIC_KEY = 'YOUR_PUBLIC_KEY';
 
 const ProfileDownloadModal = ({ isOpen, onClose }) => {
   const [isSubmitted, setIsSubmitted] = useState(false);
@@ -25,32 +27,31 @@ const ProfileDownloadModal = ({ isOpen, onClose }) => {
   };
 
 
-  const handleSubmit = async(e) => {
+  const handleSubmit = (e) => {
     e.preventDefault();
     setIsLoading(true);
 
-    const SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbyupccu0e2_IcOHnDssiWmCrtFAjKY-Ko2ZnKbxXeHaYA0VR8WQyEYsqLS9zx215rP_/exec';
-  
-    try {
-    const response = await fetch(SCRIPT_URL, {
-      method: 'POST',
-      mode: 'no-cors', 
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify(formData)
-    });
- 
-      setIsSubmitted(true); 
-    
-  } catch (error) {
-    console.error("An error occurred:", error);
-    alert('An error occurred while submitting. Please try again.');
-  } finally {
-    setIsLoading(false);
-  }
-   
+    const templateParams = {
+      name: formData.name,
+      email: formData.email,
+      role: formData.role,
+    };
+
+    emailjs.send(SERVICE_ID, TEMPLATE_ID, templateParams, PUBLIC_KEY)
+      .then((response) => {
+        console.log('SUCCESS!', response.status, response.text);
+        setIsSubmitted(true); 
+      })
+      .catch((err) => {
+        console.error('FAILED...', err);
+        alert('An error occurred while sending the email. Please try again.');
+      })
+      .finally(() => {
+        setIsLoading(false);
+      });
   };
+   
+  
   const handleClose = () => {
     onClose(); 
     setTimeout(() => {

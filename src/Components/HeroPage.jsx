@@ -1,4 +1,4 @@
-import React,{useState} from "react";
+import React,{useState,useEffect} from "react";
 import { IoDownloadOutline } from "react-icons/io5";
 import HomeJobFile from "./HomeJobFile";
 import JobListings from "./HomeJobFile";
@@ -7,7 +7,16 @@ import ProfileDownloadModal from "./ProfileDownloadModal";
 
 
 const HeroPage = React.forwardRef((props,ref) => {
- const [isModalOpen, setIsModalOpen] = useState(true);
+ const [isModalOpen, setIsModalOpen] = useState(false);
+
+   useEffect(() => {
+    const timer = setTimeout(() => {
+      setIsModalOpen(true);
+    }, 3000);
+
+    return () => clearTimeout(timer);
+    
+  }, []);
   const openModal = () => {
     setIsModalOpen(true);
   }
@@ -20,8 +29,8 @@ return (
     <h1>Kyan Brands {'\n'}Job Portal</h1>
     <p>
      We’re more than a creative agency — we’re a team driven by purpose,
-  {'\n'}innovation and impact. Join us to grow your skills, build meaningful brands,
-  {'\n'}and contribute to solutions that truly make a difference.
+  {'\n'}innovation and impact. Join us to grow your skills, build meaningful  {'\n'}brands,
+ and contribute to solutions that truly make a difference.
       </p>
         <button 
           type="button"

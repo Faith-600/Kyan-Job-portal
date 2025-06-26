@@ -217,6 +217,8 @@ html {
   flex-wrap: wrap;
   font-family: 'Plus Jakarta Sans',sans-serif;
   white-space: pre-line;
+  text-align: justify;
+  margin: auto;
   }
 
 
@@ -486,7 +488,7 @@ body {
   border-radius: 12px;
   padding: 24px;
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
-   min-height: 660px;
+   min-height: 675px;
 
   }
 
@@ -523,7 +525,7 @@ body {
 
 .filter-group h4 {
   margin-top: 0;
-  margin-bottom: 12px;
+  margin-bottom: 8px;
   font-size: 0.9rem;
   color: #A0AEC0;
   font-weight: 400;
@@ -681,6 +683,7 @@ input[type="radio"]:checked {
   height: 150px;
  object-fit: cover;
  align-self: center;
+ padding: 10px;
 }
 
 .job-info {
@@ -690,7 +693,7 @@ input[type="radio"]:checked {
 
 .job-info h3 {
   margin: 0 0 8px 0;
-  font-size: 2.0rem;
+  font-size: 30px;
   font-weight: 700;
 }
 
@@ -702,6 +705,8 @@ input[type="radio"]:checked {
   white-space: pre-line;
   font-family: 'Plus Jakarta Sans',sans-serif;
   font-weight: 400;
+  text-align: justify;
+  width: 40ch;
  }
 
 .job-meta {
@@ -755,6 +760,10 @@ input[type="radio"]:checked {
   justify-content: center;
  }
 
+ .apply-button-now:hover{
+    transform: scale(1.1);
+
+ }
  .apply-container{
   display: flex;
   align-items: center;
@@ -828,10 +837,12 @@ input[type="radio"]:checked {
 
 
 .page-nav button.active {
-  background-color: #111827;
-  color: white;
-  border-color: #111827;
+  /* background-color: #111827; */
+  color: black;
+  border: 1px solid #111827;
   border-radius: 5px;
+  height: 30px;
+  align-self: center;
 }
 
 
@@ -1580,13 +1591,31 @@ font-size: 17px;
   transition: transform 0.3s ease;
 }
 
+.whatsapp-float::before {
+  content: '';
+  position: absolute;
+  z-index: -1; 
+   top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+   background: radial-gradient(circle, rgba(255, 255, 255, 0.8) 0%, rgba(255, 255, 255, 0) 70%);
+  border-radius: 50%; 
+  opacity: 0;
+  transform: scale(0.8);
+    transition: transform 0.3s ease-in-out, opacity 0.3s ease-in-out;
+}
+
+
 .whatsapp-float:hover {
   transform: scale(1.1);
-    animation: none; 
-  box-shadow: 
-   0 0 5px rgba(255, 255, 255, 0.6),
-  0 0 15px rgba(255, 255, 255, 0.7),
-  0 0 25px rgba(255, 255, 255, 0.8);
+  }
+
+
+  
+.whatsapp-float:hover::before {
+  opacity: 1;
+  transform: scale(1.6); 
 }
 
 
@@ -1951,6 +1980,7 @@ font-size: 17px;
 
 .job-info p {
   white-space: normal;
+  width: auto;
 }
 .job-info h3{
   font-size: 20px;
@@ -2045,12 +2075,6 @@ font-size: 17px;
   .nav-links li {
     font-size: 14px;
   }
-/* 
-  .company-profile-btn {
-   height: 50px;
-   gap: 10px;
-   font-size: 10px;
-} */
 
 
  .stack-card {
@@ -2187,7 +2211,7 @@ font-size: 17px;
 .filter-group{
   display: flex;
   flex-direction: column;
-  gap: 10px;
+  gap: 5px;
 }
 
 .filters-header{
@@ -2195,13 +2219,21 @@ font-size: 17px;
   }
 
 .page-nav .active{
-  display: none;
+  display: block;
+  padding: 6px;
 }
 
 .page-nav p{
   display: none;
-}
+  }
 
+  .page-nav{
+    display: flex; 
+      justify-content: center;
+      gap: 2px;
+        align-items: center;
+
+  }
 .pagination-footer{
   width: auto;
 }
@@ -2217,16 +2249,15 @@ font-size: 17px;
     "desc    desc"     
     "meta    meta"      
     "button  button"; 
-    padding-top: 20px;
-    padding-left: 10px;
-    
-  }
+    gap: 10px;
+   padding: 20px 10px; 
+ }
  
    .job-avatar {
     grid-area: avatar;
     width: 80px;
     height: 80px;
-    border-radius: 10px;
+    border-radius: 18px;
     align-self: flex-start;
     
   }
@@ -2242,6 +2273,7 @@ font-size: 17px;
          font-weight: 700;
          font-size: 20px;
          white-space: pre-line;
+         margin-top: 7px;
         }
 
 
@@ -2272,9 +2304,10 @@ font-size: 17px;
 }
 
 .apply-container{
-    padding: 10px 10px; 
+    padding: 10px 12px; 
    width: 40vw; 
    font-weight: 500;
+
 
 }
  .job-info .view-details-button {
@@ -2292,7 +2325,9 @@ font-size: 17px;
   grid-area: desc;
   margin: 0;
   line-height: 1.6;
-  align-self: start; 
+  align-self: start;
+  width: auto;
+  padding: 0 10px; 
   }
 
   .job-info .job-meta {
@@ -2302,6 +2337,7 @@ font-size: 17px;
   gap: 10px;
   color: black;
   font-size: 0.9rem;
+  padding: 0 10px; 
 }
 
 .job-info .job-meta-item {
@@ -2331,9 +2367,9 @@ font-size: 17px;
   }
 
    .hero-Content h1{
-  font-size: 55px;
+  font-size: 52px;
   padding:5px ;
-  line-height: 1;
+  line-height: 1.2;
 }
  
 
@@ -2364,11 +2400,7 @@ font-size: 17px;
  
 }
 
-.job-avatar {
-  width: 70px; 
-  height: 70px;
-  
-}
+
 
 .job-title-group {
   display: flex;
@@ -2427,21 +2459,12 @@ font-size: 1.1rem;
       height: 200px;  
      
   }
-  /* .sidebar-nav button {
-    width: 120px;
-    justify-content: center;
-    background-color: red;
-  } */
- 
 
+ 
   .content-box{
    width: auto; 
    }
 
-   /* .sidebar-nav button {
- width:130px;
-justify-content: start;
- } */
 
  .details-main-content p {
   white-space: normal;
