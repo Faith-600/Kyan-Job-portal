@@ -4,10 +4,9 @@ import { CiMail } from "react-icons/ci";
 import { GoPerson } from "react-icons/go";
 import { FaInstagram } from "react-icons/fa";
 import { FaFacebookSquare } from "react-icons/fa";
-import { FaTwitter } from "react-icons/fa";
 import { FaRegCopyright } from "react-icons/fa";
 import { FaArrowUp } from "react-icons/fa";
-import { useInView } from 'react-intersection-observer';
+import { FaXTwitter } from "react-icons/fa6";
 
 
 
@@ -109,18 +108,23 @@ const Footer = React.forwardRef((props,ref) => {
  +234 703 192 0023</span>
                 <span><CiMail size={25}/>
                  <a
-            href="mailto:contact@kyanbrands.org"
+            href="mailto:career@kyanbrands.org"
             target="_blank"
             rel="noopener noreferrer"
             className="social-link"
-          >contact@kyanbrands.org</a>
+          >career@kyanbrands.org</a>
  </span>
             </div>
             <div className="footer-socials">
-                <a ><FaInstagram /></a>
-                <a ><FaFacebookSquare />
-</a>
-                <a><FaTwitter />
+                <a href="https://www.instagram.com/kyanbrands/" target="_blank" rel="noopener noreferrer">
+              <FaInstagram />
+           </a>
+                               <a href="https://www.facebook.com/kyanbrands/" target="_blank" rel="noopener noreferrer">
+         <FaFacebookSquare />
+         </a>
+                <a href="https://www.instagram.com/kyanbrands/" target="_blank" rel="noopener noreferrer">
+             <FaXTwitter  size={17}/>
+
 </a>
             </div>
             <div className="footer-copyright">

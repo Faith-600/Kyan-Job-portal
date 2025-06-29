@@ -11,7 +11,7 @@ const LoadingPage = () => {
         </svg>
 
         <img
-          src="/kyan-icon.jpg"
+          src="/Kyan-logo2.png"
           className="logo" 
           alt="Company Logo"
         />

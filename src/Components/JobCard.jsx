@@ -1,4 +1,4 @@
-import React,{useState,useEffect} from "react";
+import React,{useState,useEffect,useMemo} from "react";
 import { CiSearch } from "react-icons/ci";
 import { PiSlidersFill } from "react-icons/pi";
 import Filters from "./Filter";
@@ -18,6 +18,11 @@ const JobCard = React.forwardRef((props ,ref) => {
    const [searchTerm, setSearchTerm] = useState('');
    const [activeFilters, setActiveFilters] = useState(INITIAL_FILTERS);
    const [dateFilter, setDateFilter] = useState('all');
+
+     const { ref: sectionRef, inView: sectionInView } = useInView({
+    triggerOnce: true,
+    threshold: 0.1,
+  });
 
     
 
@@ -96,8 +101,11 @@ const toggleFilterVisibility = () => {
 
   return (
     <>
-    <section id="apply" ref={ref} className="job-portal-page" > 
-      {/* === HEADER SECTION === */}
+ <section
+        id="apply"
+        ref={sectionRef} // Attach the ref here
+        className={`job-portal-page ${sectionInView ? 'is-visible' : ''}`}>    
+          {/* === HEADER SECTION === */}
       <header className="portal-header">
         <div className="text-container">
         <h2>Job Recommendations for you</h2>
@@ -124,6 +132,8 @@ const toggleFilterVisibility = () => {
               onClearFilters={handleClearFilters} 
               activeDateFilter={dateFilter}
               onDateFilterChange={handleDateFilterChange}
+               headerJobCount={filteredJobs.length}
+
  />}
           </div>
 
@@ -141,6 +151,8 @@ const toggleFilterVisibility = () => {
             onClearFilters={handleClearFilters} 
             activeDateFilter={dateFilter}
               onDateFilterChange={handleDateFilterChange}
+            headerJobCount={filteredJobs.length}
+
 
             />
             </div>
@@ -151,9 +163,9 @@ const toggleFilterVisibility = () => {
            <main className="main-content-area">
             <div className="job-listings">
            {filteredJobs.length > 0 ? (
-          filteredJobs.map(job => (
-            <JobList key={job.id} job={job} />
-          ))
+          filteredJobs.map((job,index) => (
+             <JobList key={job.id} job={job} index={index} />        
+              ))
         ) : (
          <div style={noJobsFoundStyle}>
                 <h4>No Jobs Found</h4>

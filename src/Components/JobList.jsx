@@ -3,8 +3,15 @@ import { SlCalender } from "react-icons/sl";
 import { GoPerson } from "react-icons/go";
 import { LuBriefcaseBusiness } from "react-icons/lu";
 import { Link } from 'react-router-dom';
+import { useInView } from 'react-intersection-observer';
 
-const JobList = ({ job }) => {
+
+const JobList = ({ job,index }) => {
+
+    const { ref, inView } = useInView({
+    triggerOnce: true,
+    threshold: 0.2,
+  });
   if (!job) {
     return null;
   }
@@ -44,8 +51,11 @@ const formatTimeAgo = (dateString) => {
 
   return (
     <>
-   <div className="job-card">
-      <img src={job.avatar} alt={`${job.title} avatar`} className="job-avatar" />
+   <div 
+        ref={ref} 
+        className={`job-card ${inView ? 'is-visible' : ''}`}
+        style={{ animationDelay: `${index * 100}ms` }} >
+         <img src={job.avatar} alt={`${job.title} avatar`} className="job-avatar" />
       <div className="job-info">
         <h3>{job.title}</h3>
         <p>{job.description}</p>
@@ -72,7 +82,7 @@ const formatTimeAgo = (dateString) => {
           </div>
         ) : (
           <div className='apply-container'>
-          <button className="apply-button-now" disabled>
+          <button className="coming-soon-button-now" disabled>
             Coming Soon
           </button>
           </div>

@@ -14,6 +14,14 @@ const JobDetailsPage = () => {
     const job = jobsData.find(j => j.id.toString() === id);
   const [activeSection, setActiveSection] = useState('');
     const [isSubmitted, setIsSubmitted] = useState(false);
+      const [isPageLoaded, setPageLoaded] = useState(false);
+
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      setPageLoaded(true);
+    }, 100); 
+    return () => clearTimeout(timer);
+  }, []);
 
   const { ref: contactRef, inView: contactInView } = useInView({
     threshold: 0.2,
@@ -137,8 +145,7 @@ const JobDetailsPage = () => {
       <>
       <NavBar activeSection={activeSection}/>
      
-    <div className="job-details-page">
-      <header className="details-header">
+ <div className={`job-details-page ${isPageLoaded ? 'is-loaded' : ''}`}>      <header className="details-header">
         <h1>{job.titleTwo}</h1>
         <p className="job-description-subtitle">Job Description</p>
       </header>
@@ -172,7 +179,9 @@ const JobDetailsPage = () => {
               )}
 
               <section className="details-main-content">
+                   <div className="content-fader" key={activeTab}>
               {renderContent()}
+              </div>
             </section>
         </div>
       </main>

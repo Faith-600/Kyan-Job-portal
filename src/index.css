@@ -509,7 +509,7 @@ body {
 
 .new-badge {
   background-color: white;
-  padding: 5px 10px;
+  padding: 3px 10px;
   border-radius: 8px;
   font-size: 0.75rem;
   border: 1px solid black;
@@ -564,7 +564,7 @@ input[type="radio"]:checked {
 .job-portal-page {
   margin-left: auto;  
   margin-right: auto; 
- margin-top: 10px;
+ margin-top: 30px;
  
  
 }
@@ -575,7 +575,7 @@ input[type="radio"]:checked {
   justify-content: space-between; 
   align-items: center; 
   gap: 2rem; 
-  background-color: white;
+  background-color:white;
   padding: 1rem 3rem;
   border-radius: 12px;
   border: 1px solid #eef0f5;
@@ -589,9 +589,7 @@ input[type="radio"]:checked {
     max-width: 1200px;
   margin: 0 auto;
   padding: 1rem;
-  
-
-}
+  }
 
 .main-content-area {
   display: flex;
@@ -665,6 +663,46 @@ input[type="radio"]:checked {
 } 
 
 
+@keyframes slide-up {
+  from {
+    opacity: 0;
+    transform: translateY(50px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes slide-in-left {
+  from {
+    opacity: 0;
+    transform: translateX(-100px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+.job-portal-page.is-visible .portal-header {
+  animation: slide-up 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94) forwards;
+}
+
+.job-portal-page.is-visible .filters-sidebar {
+  animation: slide-in-left 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94) forwards;
+  animation-delay: 200ms;
+}
+
+.job-card.is-visible {
+  animation: slide-up 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94) forwards;
+}
+
+
+.portal-header,
+.filters-sidebar,
+.job-card {
+  opacity: 0; 
+ } 
 
 .job-card {
   display: flex; 
@@ -675,7 +713,6 @@ input[type="radio"]:checked {
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
   justify-content: space-around;
  }
-
 
 
 .job-avatar {
@@ -760,6 +797,22 @@ input[type="radio"]:checked {
   justify-content: center;
  }
 
+ .coming-soon-button-now{
+  background-color: grey; 
+  color: #ffffff;
+  border: none;
+  border-radius: 8px;
+  font-size: 0.6rem;
+  font-weight: 600;
+  cursor: pointer;
+  width: 120px;
+  transition: background-color 0.2s ease-in-out;
+  display: flex;
+  align-items: center;
+  height: 40px;
+  justify-content: center;
+ }
+
  .apply-button-now:hover{
     transform: scale(1.1);
 
@@ -816,8 +869,8 @@ input[type="radio"]:checked {
   display: flex;         
   align-items: center;   
   justify-content: center;
-  background-color: #fff;
-  color: black;
+  background-color:white;
+  color: grey;
   border: none;
   padding: 8px;
   cursor: pointer;
@@ -838,7 +891,7 @@ input[type="radio"]:checked {
 
 .page-nav button.active {
   /* background-color: #111827; */
-  color: black;
+  color: grey;
   border: 1px solid #111827;
   border-radius: 5px;
   height: 30px;
@@ -1167,7 +1220,32 @@ input[type="radio"]:checked {
 .details-layout.submitted .details-main-content {
     width: 100%;
     max-width: 800px;
+}
 
+.details-header,
+.details-sidebar,
+.details-main-content {
+  opacity: 0;
+}
+
+
+.job-details-page.is-loaded .details-header {
+  animation: slide-up 0.7s ease-out forwards;
+}
+
+.job-details-page.is-loaded .details-sidebar {
+  animation: slide-in-left 0.7s ease-out forwards;
+  animation-delay: 150ms; 
+}
+
+.job-details-page.is-loaded .details-main-content {
+  opacity: 1; 
+  animation: slide-up 0.7s ease-out forwards;
+  animation-delay: 300ms; 
+}
+
+.content-fader {
+  animation: slide-up 0.5s ease-out forwards;
 }
 
 
@@ -1561,17 +1639,20 @@ font-size: 17px;
 
 
 /* Whatsapp section */
-@keyframes glowing-pulse {
-  0% {
-    box-shadow: 0 0 5px rgba(255, 255, 255, 0.5);
-  }
-  50% {
-    box-shadow: 0 0 20px 10px rgba(255, 255, 255, 0);
-  }
-  100% {
-    box-shadow: 0 0 5px rgba(255, 255, 255, 0.5);
-  }
-}
+ @keyframes smooth-breathing {
+            0% {
+                transform: scale(0.95);
+                box-shadow: 0 0 0 0 rgb(255, 255, 255);
+            }
+            70% {
+                transform: scale(1);
+                box-shadow: 0 0 0 15px rgba(255, 255, 255, 0);
+            }
+            100% {
+                transform: scale(0.95);
+                box-shadow: 0 0 0 0 rgba(255, 255, 255, 0);
+            }
+        }
 
 .whatsapp-float {
   position: fixed;
@@ -1587,38 +1668,18 @@ font-size: 17px;
   justify-content: center;
   align-items: center;
   font-size: 30px;
-  animation: glowing-pulse 2.5s infinite ease-in-out;
-  transition: transform 0.3s ease;
+  animation: smooth-breathing 2.5s infinite cubic-bezier(0.4, 0, 0.2, 1);  transition: transform 0.3s ease;
 }
-
-.whatsapp-float::before {
-  content: '';
-  position: absolute;
-  z-index: -1; 
-   top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-   background: radial-gradient(circle, rgba(255, 255, 255, 0.8) 0%, rgba(255, 255, 255, 0) 70%);
-  border-radius: 50%; 
-  opacity: 0;
-  transform: scale(0.8);
-    transition: transform 0.3s ease-in-out, opacity 0.3s ease-in-out;
-}
-
-
 .whatsapp-float:hover {
   transform: scale(1.1);
   }
-
-
   
 .whatsapp-float:hover::before {
   opacity: 1;
   transform: scale(1.6); 
 }
 
-
+/* Modal */
 .modal-backdrop {
   position: fixed;
   top: 0;

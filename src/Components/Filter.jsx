@@ -1,7 +1,14 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect,useMemo } from 'react';
 
 
-const Filters = ({activeFilters, onApplyFilters,onClearFilters,activeDateFilter, onDateFilterChange,className=""}) => {
+const Filters = ({activeFilters, 
+  onApplyFilters,
+  onClearFilters,
+  activeDateFilter, 
+  onDateFilterChange,
+  className="",
+    headerJobCount,
+}) => {
  if (!activeFilters || !activeFilters.location || !activeFilters.employmentType) {
     return null; 
   }
@@ -29,7 +36,7 @@ return (
 <div className="filter-content">
   <div className="filters-card">
     <div className="filters-header">
-      <h3>Filters<span className="new-badge">002</span></h3>
+      <h3>Filters<span className="new-badge">{headerJobCount}</span></h3>
       
       </div>
     <div className="filters-group-container">
