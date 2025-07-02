@@ -122,7 +122,7 @@ const Footer = React.forwardRef((props,ref) => {
                                <a href="https://www.facebook.com/kyanbrands/" target="_blank" rel="noopener noreferrer">
          <FaFacebookSquare />
          </a>
-                <a href="https://www.instagram.com/kyanbrands/" target="_blank" rel="noopener noreferrer">
+                <a href="https://x.com/kyanbrands" target="_blank" rel="noopener noreferrer">
              <FaXTwitter  size={17}/>
 
 </a>

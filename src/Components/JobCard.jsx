@@ -2,10 +2,11 @@ import React,{useState,useEffect,useMemo} from "react";
 import { CiSearch } from "react-icons/ci";
 import { PiSlidersFill } from "react-icons/pi";
 import Filters from "./Filter";
-import jobsData from "./JobData";
+// import jobsData from "./JobData";
 import JobList from "./JobList";
 import { IoMdArrowDropleft, IoMdArrowDropright } from "react-icons/io";
 import { useInView } from 'react-intersection-observer';
+import sanityClient from "../sanityClient";
 
 
 
@@ -14,7 +15,8 @@ const INITIAL_FILTERS = {
   employmentType: [],
 };
 const JobCard = React.forwardRef((props ,ref) => {
-  const [isFilterVisible, setFilterVisible] = useState(false);
+    const [allJobs, setAllJobs] = useState([]); 
+   const [isFilterVisible, setFilterVisible] = useState(false);
    const [searchTerm, setSearchTerm] = useState('');
    const [activeFilters, setActiveFilters] = useState(INITIAL_FILTERS);
    const [dateFilter, setDateFilter] = useState('all');
@@ -24,7 +26,41 @@ const JobCard = React.forwardRef((props ,ref) => {
     threshold: 0.1,
   });
 
-    
+    useEffect(() => {
+    // This is the GROQ query to get all jobs
+    const query = `*[_type == "job"]{
+      _id,
+      title,
+      "avatar": avatar.asset->url,
+      description,
+      level,
+      location,
+      employmentType, // <-- Make sure you added this to your schema!
+      posted_ago,
+      summaryTitle,
+      titleTwo,
+      summary,
+      detailsTitle,
+      details,
+      requirementsTitle,
+      requirementDetails,
+      benefitTitle,
+      benefitDetails,
+      applyContent,
+      "slug": slug.current
+    }`;
+
+    sanityClient.fetch(query)
+      .then((data) => {
+        setAllJobs(data || []); 
+      })
+      .catch((err) => {
+        console.error("Error fetching Sanity data: ", err);
+        setAllJobs([]);
+      });
+  }, []); 
+
+
 
       const handleDateFilterChange = (value) => {
         setDateFilter(value);
@@ -54,7 +90,10 @@ const toggleFilterVisibility = () => {
     setSearchTerm(event.target.value);
   };
 
-    const filteredJobs = jobsData.filter(job => {
+  const filteredJobs = useMemo(() => {
+    if (!allJobs) return []; 
+
+    return allJobs.filter(job => {
     const { location, employmentType } = activeFilters;
 
   const searchMatch = searchTerm.trim() === '' ||
@@ -86,6 +125,8 @@ const toggleFilterVisibility = () => {
 
     return searchMatch && employmentMatch && scheduleMatch && dateMatch;
   });
+    }, [allJobs, searchTerm, activeFilters, dateFilter]); 
+
 
    const areFiltersApplied = activeFilters.location.length > 0 || activeFilters.employmentType.length > 0;
 
@@ -164,7 +205,7 @@ const toggleFilterVisibility = () => {
             <div className="job-listings">
            {filteredJobs.length > 0 ? (
           filteredJobs.map((job,index) => (
-             <JobList key={job.id} job={job} index={index} />        
+             <JobList key={job._id} job={job} index={index} />        
               ))
         ) : (
          <div style={noJobsFoundStyle}>
