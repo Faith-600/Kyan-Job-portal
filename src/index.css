@@ -2342,8 +2342,8 @@ font-size: 17px;
 .job-title-container {
   grid-area: title;
   display: flex;
-  align-items: center; /* Vertically centers the text block */
-  min-height: 56px; /* Ensures consistent spacing next to the avatar */
+  align-items: center;
+  min-height: 56px; 
 }
 
 .job-info h3.job-title-text {
@@ -2351,9 +2351,7 @@ font-size: 17px;
   font-size: 20px;
   line-height: 1.4;
   margin: 0;
-
-  /* This is just a safety net for titles that are already 3+ lines long */
-  display: -webkit-box;
+    display: -webkit-box;
   -webkit-box-orient: vertical;
   -webkit-line-clamp: 2;
   overflow: hidden;
