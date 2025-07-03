@@ -57,7 +57,9 @@ const formatTimeAgo = (dateString) => {
         style={{ animationDelay: `${index * 100}ms` }} >
          <img src={job.avatar} alt={`${job.title} avatar`} className="job-avatar" />
       <div className="job-info">
-        <h3>{job.title}</h3>
+        <div className='job-title-container'>
+          <h3 className="job-title-text">{job.title}</h3>
+        </div>
         <p>{job.description}</p>
         <div className="job-meta">
           <span className="job-meta-item">

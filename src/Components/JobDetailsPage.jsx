@@ -13,6 +13,8 @@ const JobDetailsPage = () => {
   const [activeTab, setActiveTab] = useState('summary');
   const { slug } = useParams(); 
   const [job, setJob] = useState(null);
+   const [loading, setLoading] = useState(true); 
+  const [error, setError] = useState(null);
   const [activeSection, setActiveSection] = useState('');
     const [isSubmitted, setIsSubmitted] = useState(false);
       const [isPageLoaded, setPageLoaded] = useState(false);
@@ -41,18 +43,32 @@ const JobDetailsPage = () => {
   };
 
     useEffect(() => {
-    const query = `*[_type == "job" && slug.current == $slug][0]{ _id, title, "avatar": avatar.asset->url, description, level,
-        location, employmentType, posted_ago, summaryTitle, titleTwo,
+       if (!slug) {
+    return;
+  }
+    const query = `*[_type == "job" && slug.current == $slug][0]{ _id, summaryTitle, titleTwo,
         summary, detailsTitle, details, requirementsTitle, requirementDetails,
         benefitTitle, benefitDetails, applyContent, "slug": slug.current  }`;
-
+         setLoading(true);
     sanityClient.fetch(query, { slug })
       .then((data) => {
         setJob(data);
+         setLoading(false);
       })
       .catch((err) => {
+          console.error("Error fetching job:", err);
+        setError("Failed to load job details.");
+        setLoading(false); 
       });
   }, [slug]);
+
+   if (loading) {
+    return <div style={{ padding: "5rem", textAlign: "center" }}></div>;
+  }
+
+  if (error) {
+    return <div style={{ padding: "5rem", textAlign: "center" }}>Error: {error}</div>;
+  }
 
   const getActiveTitle = () => {
     switch (activeTab) {

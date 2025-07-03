@@ -7,7 +7,6 @@ export default {
   // This is the type of schema
   type: 'document',
 
-  // These are the fields for our job posting
   fields: [
     {
       name: 'title',
@@ -15,14 +14,29 @@ export default {
       type: 'string',
       description: 'e.g., Operations and Administrative Assistant',
     },
+
+      {
+    name: 'sortOrder',
+    title: 'Sort Order',
+     type: 'number', 
+  description: 'A number to control the display order. Lower numbers appear first (e.g., 1, 2, 3...).',
+  validation: Rule => Rule.integer().positive().warning('Order should be a positive number.')
+  },
+      {
+    name: 'isFeatured',
+    title: 'Featured (Has Details Page)',
+    type: 'boolean',
+    description: 'Turn this ON to make the job clickable with a "View Details" button. Featured jobs will appear at the top of the list.',
+    initialValue: false,
+  },
     {
         name: 'slug',
         title: 'Slug (URL)',
         type: 'slug',
         description: 'A unique URL identifier for this job. Click "Generate".',
         options: {
-          source: 'title', // auto-generates from the title field
-          maxLength: 96,
+        source: 'title', 
+        maxLength: 96,
         },
     },
     {

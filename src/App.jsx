@@ -29,7 +29,7 @@ function App() {
       <Routes>
         <Route path="/" element={<Hero/> } /> 
         
-        <Route path="/job/:id" element={<JobDetailsPage />} />
+        <Route path="/job/:slug" element={<JobDetailsPage />} />
          <Route path="/thank-you" element={<ThankYou />} />
 
       </Routes>

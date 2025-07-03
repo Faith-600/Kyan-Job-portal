@@ -7,6 +7,10 @@ import { FaFacebookSquare } from "react-icons/fa";
 import { FaRegCopyright } from "react-icons/fa";
 import { FaArrowUp } from "react-icons/fa";
 import { FaXTwitter } from "react-icons/fa6";
+import.meta.env.VITE_MAILCHIMP_API_KEY;
+import.meta.env.VITE_MAILCHIMP_SERVER_PREFIX
+
+
 
 
 
@@ -20,10 +24,10 @@ const Footer = React.forwardRef((props,ref) => {
   const [subscribed, setSubscribed] = useState(false);
   const [isVisible, setIsVisible] = useState(false);
 
-//     mailchimp.setConfig({
-//     apiKey: "YOUR_MAILCHIMP_API_KEY",
-//     server: "YOUR_MAILCHIMP_SERVER_PREFIX" // e.g., "us12"
-//   });
+  //   mailchimp.setConfig({
+  //   apiKey: "VITE_MAILCHIMP_API_KEY",
+  //   server: "VITE_MAILCHIMP_SERVER_PREFIX"
+  // });
 
 
  

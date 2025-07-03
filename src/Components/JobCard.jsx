@@ -1,8 +1,7 @@
-import React,{useState,useEffect,useMemo} from "react";
+import React,{useState,useEffect,useMemo,useRef} from "react";
 import { CiSearch } from "react-icons/ci";
 import { PiSlidersFill } from "react-icons/pi";
 import Filters from "./Filter";
-// import jobsData from "./JobData";
 import JobList from "./JobList";
 import { IoMdArrowDropleft, IoMdArrowDropright } from "react-icons/io";
 import { useInView } from 'react-intersection-observer';
@@ -27,8 +26,7 @@ const JobCard = React.forwardRef((props ,ref) => {
   });
 
     useEffect(() => {
-    // This is the GROQ query to get all jobs
-    const query = `*[_type == "job"]{
+    const query = `*[_type == "job"] | order(isFeatured desc, sortOrder asc){
       _id,
       title,
       "avatar": avatar.asset->url,
@@ -47,6 +45,9 @@ const JobCard = React.forwardRef((props ,ref) => {
       benefitTitle,
       benefitDetails,
       applyContent,
+      isFeatured,
+      summary,
+      sortOrder,
       "slug": slug.current
     }`;
 
@@ -130,6 +131,65 @@ const toggleFilterVisibility = () => {
 
    const areFiltersApplied = activeFilters.location.length > 0 || activeFilters.employmentType.length > 0;
 
+    const jobsListContainerRef = useRef(null);
+
+
+    const formatJobTitles = () => {
+    if (window.innerWidth >= 768) {
+      const titles = jobsListContainerRef.current?.querySelectorAll('.job-title-text');
+      titles?.forEach(title => {
+        if (title.dataset.originalTitle) title.innerHTML = title.dataset.originalTitle;
+      });
+      return;
+    }
+    
+    if (!jobsListContainerRef.current) return;
+    const titles = jobsListContainerRef.current.querySelectorAll('.job-title-text');
+
+    titles.forEach(title => {
+      if (!title.dataset.originalTitle) title.dataset.originalTitle = title.innerText;
+      title.innerHTML = title.dataset.originalTitle;
+
+      const styles = window.getComputedStyle(title);
+      const lineHeight = parseFloat(styles.lineHeight);
+
+      if (title.offsetHeight < lineHeight * 1.5) {
+        const originalText = title.innerText;
+        const words = originalText.split(' ');
+
+        if (words.length > 1) {
+          const middleIndex = Math.floor(words.length / 2);
+          const firstLine = words.slice(0, middleIndex).join(' ');
+          const secondLine = words.slice(middleIndex).join(' ');
+          title.innerHTML = `${firstLine}<br>${secondLine}`;
+        } else {
+          const midPoint = Math.floor(originalText.length / 2);
+          const firstPart = originalText.substring(0, midPoint);
+          const secondPart = originalText.substring(midPoint);
+          title.innerHTML = `${firstPart}<br>${secondPart}`;
+        }
+      }
+    });
+  };
+
+  // 3. The useEffect hook to run the function
+  useEffect(() => {
+    let resizeTimer;
+    const handleResize = () => {
+      clearTimeout(resizeTimer);
+      resizeTimer = setTimeout(() => formatJobTitles(), 150);
+    };
+
+    // Initial run
+    handleResize();
+
+    window.addEventListener('resize', handleResize);
+    return () => {
+      window.removeEventListener('resize', handleResize);
+      clearTimeout(resizeTimer);
+    };
+   
+  }, [filteredJobs]);
   
 
     const noJobsFoundStyle = {
@@ -202,7 +262,7 @@ const toggleFilterVisibility = () => {
                 {/* --- 2. MAIN CONTENT AREA (NEW WRAPPER) --- */}
 
            <main className="main-content-area">
-            <div className="job-listings">
+            <div className="job-listings" ref={jobsListContainerRef}>
            {filteredJobs.length > 0 ? (
           filteredJobs.map((job,index) => (
              <JobList key={job._id} job={job} index={index} />        
