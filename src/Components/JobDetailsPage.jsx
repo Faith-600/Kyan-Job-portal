@@ -7,11 +7,12 @@ import CustomForm from './CustomForm';
 import ThankYou from './ThankYou';
 import NavBar from './NavBar';
 import { useInView } from 'react-intersection-observer';
+import sanityClient from '../sanityClient';
 
 const JobDetailsPage = () => {
   const [activeTab, setActiveTab] = useState('summary');
-  const { id } = useParams(); 
-    const job = jobsData.find(j => j.id.toString() === id);
+  const { slug } = useParams(); 
+  const [job, setJob] = useState(null);
   const [activeSection, setActiveSection] = useState('');
     const [isSubmitted, setIsSubmitted] = useState(false);
       const [isPageLoaded, setPageLoaded] = useState(false);
@@ -38,6 +39,20 @@ const JobDetailsPage = () => {
       const handleFormSuccess = () => {
     setIsSubmitted(true);
   };
+
+    useEffect(() => {
+    const query = `*[_type == "job" && slug.current == $slug][0]{ _id, title, "avatar": avatar.asset->url, description, level,
+        location, employmentType, posted_ago, summaryTitle, titleTwo,
+        summary, detailsTitle, details, requirementsTitle, requirementDetails,
+        benefitTitle, benefitDetails, applyContent, "slug": slug.current  }`;
+
+    sanityClient.fetch(query, { slug })
+      .then((data) => {
+        setJob(data);
+      })
+      .catch((err) => {
+      });
+  }, [slug]);
 
   const getActiveTitle = () => {
     switch (activeTab) {

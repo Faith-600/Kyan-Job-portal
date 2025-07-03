@@ -35,7 +35,7 @@ const JobCard = React.forwardRef((props ,ref) => {
       description,
       level,
       location,
-      employmentType, // <-- Make sure you added this to your schema!
+      employmentType, 
       posted_ago,
       summaryTitle,
       titleTwo,
@@ -100,10 +100,10 @@ const toggleFilterVisibility = () => {
       (job.title && job.title.toLowerCase().includes(searchTerm.toLowerCase()));
 
     const employmentMatch = employmentType.length === 0 ||
-      (job.employmentType && employmentType.map(f => f.toLowerCase()).includes(job.employmentType.toLowerCase()));
+      (job.employmentType && employmentType.map(f => f.trim().toLowerCase()).includes(job.employmentType.trim().toLowerCase()));
 
     const scheduleMatch = location.length === 0 ||
-      (job.location && location.map(f => f.toLowerCase()).includes(job.location.toLowerCase()));
+      (job.location && location.map(f => f.trim().toLowerCase()).includes(job.location.trim().toLowerCase()));
 
     let dateMatch = true; 
     if (dateFilter !== 'all') {

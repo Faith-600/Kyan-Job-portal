@@ -488,7 +488,7 @@ body {
   border-radius: 12px;
   padding: 24px;
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
-   min-height: 675px;
+   min-height: 700px;
 
   }
 
@@ -595,8 +595,10 @@ input[type="radio"]:checked {
   display: flex;
   flex-direction: column;
   min-width: 0; 
-   
+  
 }
+
+
 
 .job-listings {
   display: grid;
@@ -712,6 +714,8 @@ input[type="radio"]:checked {
   padding: 10px;
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
   justify-content: space-around;
+    height: fit-content;
+
  
 }
 
