@@ -5,6 +5,7 @@ import { FaEnvelope } from "react-icons/fa";
 import { FaBriefcase } from "react-icons/fa";
 import { ImSpinner2 } from "react-icons/im"; 
 import { MdDownloading } from "react-icons/md";
+import emailjs from '@emailjs/browser'
 
 
 const SERVICE_ID = import.meta.env.VITE_SERVICE_ID;
@@ -35,7 +36,7 @@ const ProfileDownloadModal = ({ isOpen, onClose }) => {
       name: formData.name,
       email: formData.email,
       role: formData.role,
-       document_link:"https://drive.google.com/drive/folders/1WyYEFQGNSCB1Zw5-DFrTWNn2_lcYdzxz?usp=drive_link"
+       document_link:"https://drive.google.com/uc?export=download&id=199LdjcQVX7p3IUknnLnrHMaJKOTMkczT"
     };
 
     emailjs.send(SERVICE_ID, TEMPLATE_ID, templateParams, PUBLIC_KEY)

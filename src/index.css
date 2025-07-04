@@ -2351,10 +2351,10 @@ font-size: 17px;
   font-size: 20px;
   line-height: 1.4;
   margin: 0;
-  display: -webkit-box;
-  -webkit-box-orient: vertical;
-  -webkit-line-clamp: 2;
-  overflow: hidden;
+  /* display: -webkit-box; */
+  /* -webkit-box-orient: vertical; */
+  /* -webkit-line-clamp: 2; */
+  /* overflow: hidden; */
 }
 
  .text-container h2{
