@@ -48,12 +48,14 @@ const Footer = React.forwardRef((props,ref) => {
    const handleSubmit = async (e) => {
     e.preventDefault();
 
-    if (!validateEmail) return;
-
+ if (!validateEmail(email)) {
+      alert('Please enter a valid email address.');
+      return;
+    }
     setIsSubscribing(true);
 
     try {
-      const res = await fetch('/api/subscribe', {
+      const res = await fetch('https://kyan-job-portal.vercel.app/api/subscribe', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
