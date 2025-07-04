@@ -135,7 +135,7 @@ const toggleFilterVisibility = () => {
 
 
     const formatJobTitles = () => {
-    if (window.innerWidth >= 768) {
+    if (window.innerWidth >= 600) {
       const titles = jobsListContainerRef.current?.querySelectorAll('.job-title-text');
       titles?.forEach(title => {
         if (title.dataset.originalTitle) title.innerHTML = title.dataset.originalTitle;
