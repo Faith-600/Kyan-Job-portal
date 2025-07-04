@@ -33,7 +33,7 @@ export default async function handler(req, res) {
 
   try {
     const response = await mailchimp.lists.addListMember(process.env.MAILCHIMP_LIST_ID, {
-      email_address: email,
+    email_address: email,
       status: 'subscribed',
     });
 
