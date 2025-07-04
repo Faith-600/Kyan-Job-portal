@@ -1,5 +1,12 @@
 const mailchimp = require('@mailchimp/mailchimp_marketing');
 
+
+const allowedOrigins = [
+  'http://localhost:5173', 
+  'https://kyan-job-portal.vercel.app/' 
+];
+
+
 mailchimp.setConfig({
   apiKey: process.env.MAILCHIMP_API_KEY,
   server: process.env.MAILCHIMP_SERVER_PREFIX, 
