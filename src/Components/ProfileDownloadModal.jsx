@@ -7,9 +7,9 @@ import { ImSpinner2 } from "react-icons/im";
 import { MdDownloading } from "react-icons/md";
 
 
-const SERVICE_ID = 'YOUR_SERVICE_ID';
-const TEMPLATE_ID = 'YOUR_TEMPLATE_ID';
-const PUBLIC_KEY = 'YOUR_PUBLIC_KEY';
+const SERVICE_ID = import.meta.env.VITE_SERVICE_ID;
+const TEMPLATE_ID = import.meta.env.VITE_TEMPLATE_ID;
+const PUBLIC_KEY = import.meta.env.VITE_PUBLIC_KEY;
 
 const ProfileDownloadModal = ({ isOpen, onClose }) => {
   const [isSubmitted, setIsSubmitted] = useState(false);
@@ -42,6 +42,8 @@ const ProfileDownloadModal = ({ isOpen, onClose }) => {
       .then((response) => {
         console.log('SUCCESS!', response.status, response.text);
         setIsSubmitted(true); 
+      setFormData({ name: '', email: '', role: '' });
+
       })
       .catch((err) => {
         console.error('FAILED...', err);
