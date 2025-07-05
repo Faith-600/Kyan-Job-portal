@@ -36,7 +36,7 @@ const ProfileDownloadModal = ({ isOpen, onClose }) => {
       name: formData.name,
       email: formData.email,
       role: formData.role,
-       document_link:"https://drive.google.com/uc?export=download&id=199LdjcQVX7p3IUknnLnrHMaJKOTMkczT"
+       document_link:"https://drive.google.com/drive/folders/1WyYEFQGNSCB1Zw5-DFrTWNn2_lcYdzxz?usp=drive_link"
     };
 
     emailjs.send(SERVICE_ID, TEMPLATE_ID, templateParams, PUBLIC_KEY)
