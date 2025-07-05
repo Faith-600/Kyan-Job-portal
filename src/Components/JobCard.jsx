@@ -234,9 +234,8 @@ const toggleFilterVisibility = () => {
               activeDateFilter={dateFilter}
               onDateFilterChange={handleDateFilterChange}
                headerJobCount={filteredJobs.length}
-
- />}
-          </div>
+/>}
+  </div>
 
 
           </div>
