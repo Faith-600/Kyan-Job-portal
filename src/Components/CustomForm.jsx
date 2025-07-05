@@ -121,7 +121,7 @@ export default function CustomForm({ jobTitle, onSuccess }) {
 
 
     try {
-        const response = await fetch("https://script.google.com/macros/s/AKfycbwNPSWkpnMVhrRU7mhnqAddp2EhNAsn3gEISqKTejIZVSfWZ64dwdFoaUKL3a3gl9Kd/exec", {
+        const response = await fetch("https://script.google.com/macros/s/AKfycbxpzxPE-QT0xaYogwJ5zONW1pRTbsSQdbxgUE-3GkdhP1T5mvhxevo9BYH5mATUUqq3/exec", {
             method: "POST",
             body: searchParams,
         });
