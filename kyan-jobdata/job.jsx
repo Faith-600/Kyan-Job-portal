@@ -1,4 +1,3 @@
-// schemas/job.js
 
 export default {
   name: 'job',
@@ -163,6 +162,80 @@ export default {
             { name: 'notes', title: 'List of Notes', type: 'array', of: [{type: 'string'}]},
             { name: 'outro', title: 'Outro Paragraphs', type: 'array', of: [{type: 'string'}]},
         ]
-    }
+    },
+
+{
+  name: 'formFields',
+  title: 'Custom Application Form Fields',
+  description: 'Define the questions for this job\'s application form.',
+  type: 'array',
+  of: [
+    {
+      type: 'object',
+      name: 'formField',
+      fields: [
+        {
+          name: 'fieldName',
+          title: 'Field Name / ID',
+          type: 'slug', 
+          description: 'A unique ID for this field (e.g., "full_name", "relevant_experience").',
+          validation: Rule => Rule.required(),
+        },
+        {
+          name: 'label',
+          title: 'Field Label',
+          type: 'string',
+          description: 'The question you want to ask (e.g., "What is your full name?")',
+          validation: Rule => Rule.required(),
+        },
+        {
+          name: 'fieldType',
+          title: 'Field Type',
+          type: 'string',
+          validation: Rule => Rule.required(),
+          options: {
+            list: [
+              // These values match the standard HTML input types
+              { title: 'Short Text (Single Line)', value: 'text' },
+              { title: 'Email', value: 'email' },
+              { title: 'Phone Number', value: 'tel' },
+              { title: 'Paragraph (Multi-line)', value: 'textarea' },
+              { title: 'Radio Buttons (Select one)', value: 'radio' },
+              { title: 'Checkboxes (Select many)', value: 'checkbox' },
+              { title: 'File Upload', value: 'file' },
+            ],
+          },
+        },
+        {
+          name: 'options',
+          title: 'Options (for Radio/Checkbox)',
+          type: 'array',
+          of: [{ type: 'string' }],
+          // This field will only show up if the user selects 'radio' or 'checkbox'
+          hidden: ({ parent }) => !['radio', 'checkbox'].includes(parent?.fieldType),
+        },
+        {
+          name: 'isRequired',
+          title: 'Is this field required?',
+          type: 'boolean',
+          initialValue: false,
+        },
+      ],
+      preview: {
+        select: {
+          label: 'label',
+          type: 'fieldType',
+        },
+        prepare({ label, type }) {
+          return {
+            title: label,
+            subtitle: `Type: ${type}`,
+          };
+        },
+      },
+    },
   ],
+}
+  ],
+  
 };

@@ -48,7 +48,7 @@ const JobDetailsPage = () => {
   }
     const query = `*[_type == "job" && slug.current == $slug][0]{ _id, summaryTitle, titleTwo,
         summary, detailsTitle, details, requirementsTitle, requirementDetails,
-        benefitTitle, benefitDetails, applyContent, "slug": slug.current  }`;
+        benefitTitle, benefitDetails, applyContent, "slug": slug.current,formFields  }`;
          setLoading(true);
     sanityClient.fetch(query, { slug })
       .then((data) => {
@@ -155,11 +155,18 @@ const JobDetailsPage = () => {
               </>
             )}
 
-              <CustomForm 
-                jobTitle={job.title} 
-                onSuccess={handleFormSuccess} 
-              />
-        </> 
+               {job.formFields && job.formFields.length > 0 ? (
+        <DynamicFormComponent
+          fields={job.formFields}      
+          jobId={job._id}            
+          onSuccess={handleFormSuccess} 
+        />
+      ) : (
+        <div className="content-box">
+          <p>Applications for this position are currently not being accepted.</p>
+        </div>
+      )}
+    </>
           
          
          
