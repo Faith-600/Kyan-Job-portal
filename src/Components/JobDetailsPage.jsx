@@ -3,11 +3,11 @@ import { useParams, Link } from 'react-router-dom';
 import jobsData from './JobData'; 
 import Footer from './Footer';
 import WhatsAppFloat from './Whatsapp';
-import CustomForm from './CustomForm';
 import ThankYou from './ThankYou';
 import NavBar from './NavBar';
 import { useInView } from 'react-intersection-observer';
 import sanityClient from '../sanityClient';
+import DynamicFormComponent from './DynamicFormComponent';
 
 const JobDetailsPage = () => {
   const [activeTab, setActiveTab] = useState('summary');
@@ -48,7 +48,21 @@ const JobDetailsPage = () => {
   }
     const query = `*[_type == "job" && slug.current == $slug][0]{ _id, summaryTitle, titleTwo,
         summary, detailsTitle, details, requirementsTitle, requirementDetails,
-        benefitTitle, benefitDetails, applyContent, "slug": slug.current,formFields  }`;
+        benefitTitle, benefitDetails, applyContent, "slug": slug.current,
+        formFields[]{
+        _key,
+         "fieldName":fieldName.current,
+        label,
+        placeholder,
+        fieldType,
+        options,
+        allowOther,
+        isRequired,
+        checkboxGroups[]{ 
+        _key,
+         optionsInGroup[]
+}
+        }  }`;
          setLoading(true);
     sanityClient.fetch(query, { slug })
       .then((data) => {
