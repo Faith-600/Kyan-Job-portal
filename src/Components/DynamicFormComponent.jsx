@@ -247,7 +247,7 @@ const handleSubmit = async (e) => {
         };
 
         // 6. Send to the secure serverless function
-        const response = await fetch('/api/submit-application', {
+        const response = await fetch('https://kyan-job-portal.vercel.app/api/submit-application', {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify(submissionPayload),
