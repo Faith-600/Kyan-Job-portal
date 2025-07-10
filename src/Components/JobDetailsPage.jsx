@@ -77,7 +77,6 @@ const JobDetailsPage = () => {
     return <div style={{ padding: "5rem", textAlign: "center" }}>Error: {error}</div>;
   }
 
-  console.log("Full job data from Sanity:", job);
 
 
   const getActiveTitle = () => {
