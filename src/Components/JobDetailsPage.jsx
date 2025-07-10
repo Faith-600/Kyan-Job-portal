@@ -46,23 +46,16 @@ const JobDetailsPage = () => {
        if (!slug) {
     return;
   }
-    const query = `*[_type == "job" && slug.current == $slug][0]{ _id, summaryTitle, titleTwo,
-        summary, detailsTitle, details, requirementsTitle, requirementDetails,
-        benefitTitle, benefitDetails, applyContent, "slug": slug.current,
-        formFields[]{
-        _key,
-         "fieldName":fieldName.current,
-        label,
-        placeholder,
-        fieldType,
-        options,
-        allowOther,
-        isRequired,
-        checkboxGroups[]{ 
-        _key,
-         optionsInGroup[]
-}
-        }  }`;
+   const query = `*[_type == "job" && slug.current == $slug][0]{
+    _id, titleTwo, summaryTitle, summary, detailsTitle, details,
+    requirementsTitle, requirementDetails, benefitTitle, benefitDetails,
+    applyContent, "slug": slug.current,
+    formFields[]{
+      _key, label, placeholder, fieldType, options, allowOther, isRequired,
+      checkboxGroups[]{ _key, groupTitle, options },
+      fieldName{ current }
+    }
+}`;
          setLoading(true);
     sanityClient.fetch(query, { slug })
       .then((data) => {
@@ -83,6 +76,9 @@ const JobDetailsPage = () => {
   if (error) {
     return <div style={{ padding: "5rem", textAlign: "center" }}>Error: {error}</div>;
   }
+
+  console.log("Full job data from Sanity:", job);
+
 
   const getActiveTitle = () => {
     switch (activeTab) {

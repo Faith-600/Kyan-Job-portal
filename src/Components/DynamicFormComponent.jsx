@@ -125,6 +125,7 @@ const toBase64 = (file) => new Promise((resolve, reject) => {
 
 
 export default function DynamicFormComponent({ fields, jobId, onSuccess }) {
+    console.log("Props received by DynamicFormComponent:", { fields, jobId });
   const [formData, setFormData] = useState({});
   const [isSubmitting, setIsSubmitting] = useState(false);
 
@@ -211,14 +212,12 @@ const handleSubmit = async (e) => {
                     fileName: value.name,
                     mimeType: value.type,
                 };
-                // Skip adding file to the regular responses
                 continue; 
             }
 
             if (field.allowOther && Array.isArray(value) && value.includes('Other')) {
                 const otherFieldName = `${fieldName}_other_text`;
                 const otherValue = formData[otherFieldName] || 'Other (not specified)';
-                // Replace 'Other' with the actual text from the input box
                 value = value.map(item => (item === 'Other' ? otherValue : item));
             }
             
@@ -232,7 +231,7 @@ const handleSubmit = async (e) => {
             // 4. Add to the responses array if there is an answer
             if (finalAnswer) {
                 responses.push({
-                    _type: 'response', // This matches the type in your application schema
+                    _type: 'response', 
                     question: label,
                     answer: finalAnswer,
                 });
@@ -246,7 +245,6 @@ const handleSubmit = async (e) => {
             ...(filePayload && { fileData: filePayload }),
         };
 
-        // 6. Send to the secure serverless function
         const response = await fetch('https://kyan-job-portal.vercel.app/api/submit-application', {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
