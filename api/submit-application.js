@@ -40,6 +40,15 @@ export default async function handler(req, res) {
         return res.status(400).json({ message: 'Missing required fields: jobId and formResponses' });
       }
 
+
+        const responsesWithKeys = (formResponses || []).map((response, index) => {
+        return {
+          ...response,
+          _key: `${new Date().getTime()}-${index}`, 
+        };
+      });
+
+
       let fileAssetRef = null;
       if (fileData) {
         const fileAsset = await uploadFile(fileData);
@@ -50,10 +59,10 @@ export default async function handler(req, res) {
       }
 
       const applicationDoc = {
-        _type: 'application',
+       _type: 'application',
         submittedAt: new Date().toISOString(),
         job: { _type: 'reference', _ref: jobId },
-        formResponses: formResponses,
+        formResponses: responsesWithKeys, 
         ...(fileAssetRef && { cvFile: fileAssetRef }),
       };
 
@@ -62,14 +71,11 @@ export default async function handler(req, res) {
       return res.status(200).json({ message: 'Application submitted successfully' });
 
     } catch (error) {
-      // Log the detailed error on the server
       console.error('SERVER ERROR:', error);
-      // Send back a generic error message
       return res.status(500).json({ message: "An internal server error occurred.", details: error.message });
     }
   }
 
-  // If the method is not OPTIONS or POST
   res.setHeader('Allow', ['POST', 'OPTIONS']);
   return res.status(405).end(`Method ${req.method} Not Allowed`);
 }

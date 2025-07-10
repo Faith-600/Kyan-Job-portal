@@ -5,13 +5,13 @@ import { HiCursorArrowRays } from "react-icons/hi2";
 import { ImSpinner2 } from "react-icons/im";
 
 const renderField = (field, formData, handleChange, handleRemoveFile) => {
-  const { fieldName, fieldType, placeholder, options,checkboxGroups, isRequired, allowOther } = field;
+  const { fieldType, placeholder, options, checkboxGroups, isRequired, allowOther } = field;
   
-  
+  const fieldNameString = field.fieldName.current;
 
   const commonProps = {
-    name: fieldName,
-    id: fieldName,
+    name: fieldNameString,
+    id: fieldNameString,
     placeholder: placeholder || 'Answer Here',
     required: isRequired,
   };
@@ -20,17 +20,17 @@ const renderField = (field, formData, handleChange, handleRemoveFile) => {
     case 'text':
     case 'email':
     case 'tel':
-      return <input type={fieldType} {...commonProps} value={formData[fieldName] || ''} onChange={handleChange} className="form-input" />;
+      return <input type={fieldType} {...commonProps} value={formData[fieldNameString] || ''} onChange={handleChange} className="form-input" />;
     
     case 'textarea':
-      return <textarea {...commonProps} value={formData[fieldName] || ''} onChange={handleChange} className="form-textarea" />;
+      return <textarea {...commonProps} value={formData[fieldNameString] || ''} onChange={handleChange} className="form-textarea" />;
 
     case 'radio':
       return (
         <div className="form-options-container">
           {options.map(opt => (
             <label key={opt} className="radio-label">
-              <input type="radio" name={fieldName} value={opt} checked={formData[fieldName] === opt} onChange={handleChange} /> 
+              <input type="radio" name={fieldNameString} value={opt} checked={formData[fieldNameString] === opt} onChange={handleChange} /> 
               <span></span> 
               {opt}
             </label>
@@ -40,20 +40,20 @@ const renderField = (field, formData, handleChange, handleRemoveFile) => {
       
      case 'checkbox_grouped': {
       const groups = checkboxGroups || [];
-      const otherFieldName = `${fieldName}_other_text`;
-      const isOtherChecked = (formData[fieldName] || []).includes('Other');
+      const otherFieldName = `${fieldNameString}_other_text`;
+      const isOtherChecked = (formData[fieldNameString] || []).includes('Other');
 
       return (
         <div className="checkbox-multigroup-wrapper">
           {groups.map((group, index) => (
-            <div key={index} className="checkbox-row-container"> 
-              {(group.optionsInGroup || []).map(opt => (
+            <div key={group._key || index} className="checkbox-row-container"> 
+              {(group.options || []).map(opt => (
                 <label key={opt} className="checkbox-label-inline">
                   <input
                     type="checkbox"
-                    name={fieldName}
+                    name={fieldNameString}
                     value={opt}
-                    checked={(formData[fieldName] || []).includes(opt)}
+                    checked={(formData[fieldNameString] || []).includes(opt)}
                     onChange={handleChange}
                   />
                   <span>{opt}</span>
@@ -65,7 +65,7 @@ const renderField = (field, formData, handleChange, handleRemoveFile) => {
           {allowOther && (
             <div className="checkbox-row-container other-container"> 
               <label className="checkbox-label-inline">
-                <input type="checkbox" name={fieldName} value="Other" checked={isOtherChecked} onChange={handleChange} />
+                <input type="checkbox" name={fieldNameString} value="Other" checked={isOtherChecked} onChange={handleChange} />
                 <span>Others</span>
               </label>
               {isOtherChecked && (
@@ -82,7 +82,7 @@ const renderField = (field, formData, handleChange, handleRemoveFile) => {
         <div className="form-checkbox-grid tasks-grid">
           {(options || []).map(opt => (
             <label key={opt} className="checkbox-label-box">
-              <input type="checkbox" name={fieldName} value={opt} checked={(formData[fieldName] || []).includes(opt)} onChange={handleChange} /> {opt}
+              <input type="checkbox" name={fieldNameString} value={opt} checked={(formData[fieldNameString] || []).includes(opt)} onChange={handleChange} /> {opt}
             </label>
           ))}
         </div>
@@ -90,7 +90,7 @@ const renderField = (field, formData, handleChange, handleRemoveFile) => {
     }
 
     case 'file':
-        const file = formData[fieldName];
+        const file = formData[fieldNameString];
         return (
             <label className="file-upload-label">
               <div className="file-info">
@@ -102,11 +102,11 @@ const renderField = (field, formData, handleChange, handleRemoveFile) => {
                 )}
               </div>
               {file && (
-                <button onClick={(e) => handleRemoveFile(e, fieldName)} className="file-remove-btn" aria-label="Remove file" type="button">
+                <button onClick={(e) => handleRemoveFile(e, fieldNameString)} className="file-remove-btn" aria-label="Remove file" type="button">
                   <FaTimes />
                 </button>
               )}
-              <input id={fieldName} type="file" name={fieldName} className="file-input-hidden" onChange={handleChange} accept=".pdf,.doc,.docx" required={isRequired} />
+              <input id={fieldNameString} type="file" name={fieldNameString} className="file-input-hidden" onChange={handleChange} accept=".pdf,.doc,.docx" required={isRequired} />
             </label>
         );
 
@@ -114,6 +114,7 @@ const renderField = (field, formData, handleChange, handleRemoveFile) => {
       return null;
   }
 };
+
 
 
 const toBase64 = (file) => new Promise((resolve, reject) => {
@@ -125,25 +126,21 @@ const toBase64 = (file) => new Promise((resolve, reject) => {
 
 
 export default function DynamicFormComponent({ fields, jobId, onSuccess }) {
-    console.log("Props received by DynamicFormComponent:", { fields, jobId });
   const [formData, setFormData] = useState({});
   const [isSubmitting, setIsSubmitting] = useState(false);
 
-
-useEffect(() => {
-  const initialState = {};
-  
-  fields.forEach(field => {
-    const fieldName = field.fieldName.current; 
-    if (field.fieldType.startsWith('checkbox')) {
-      initialState[fieldName] = []; 
-    } else {
-      initialState[fieldName] = ''; 
-    }
-  });
-
-  setFormData(initialState);
-}, [fields]);
+  useEffect(() => {
+    const initialState = {};
+    fields.forEach(field => {
+      const fieldName = field.fieldName.current; 
+      if (field.fieldType.startsWith('checkbox')) {
+        initialState[fieldName] = []; 
+      } else {
+        initialState[fieldName] = ''; 
+      }
+    });
+    setFormData(initialState);
+  }, [fields]);
 
   const handleRemoveFile = (e, fieldName) => {
     e.preventDefault(); 
@@ -155,7 +152,6 @@ useEffect(() => {
 
   const handleChange = (e) => {
     const { name, value, type, checked, files } = e.target;
-
     if (type === 'file') {
       const selectedFile = files[0];
       if (selectedFile && selectedFile.size > 2 * 1024 * 1024) {
@@ -165,13 +161,11 @@ useEffect(() => {
       setFormData(prev => ({ ...prev, [name]: selectedFile }));
       return;
     }
-    
     if (type === 'checkbox') {
       setFormData(prev => {
         const currentValues = prev[name] || [];
         const otherFieldName = `${name}_other_text`;
         let newValues;
-
         if (checked) {
           newValues = [...currentValues, value];
         } else {
@@ -181,30 +175,25 @@ useEffect(() => {
         if (value === 'Other' && !checked) {
           updatedState[otherFieldName] = '';
         }
-      return updatedState;
+        return updatedState;
       });
     } else {
       setFormData(prev => ({ ...prev, [name]: value }));
     }
   };
 
-
-const handleSubmit = async (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
     if (isSubmitting) return;
     setIsSubmitting(true);
-
     try {
         let filePayload = null;
         const responses = [];
-
         for (const field of fields) {
             const fieldName = field.fieldName.current;
             const label = field.label;
             const fieldType = field.fieldType;
             let value = formData[fieldName];
-
-            // 1. Handle file upload separately
             if (fieldType === 'file' && value) {
                 const base64 = await toBase64(value);
                 filePayload = {
@@ -214,21 +203,17 @@ const handleSubmit = async (e) => {
                 };
                 continue; 
             }
-
             if (field.allowOther && Array.isArray(value) && value.includes('Other')) {
                 const otherFieldName = `${fieldName}_other_text`;
                 const otherValue = formData[otherFieldName] || 'Other (not specified)';
                 value = value.map(item => (item === 'Other' ? otherValue : item));
             }
-            
             let finalAnswer = '';
             if (Array.isArray(value)) {
                 finalAnswer = value.join(', ');
             } else if (value || typeof value === 'boolean') {
                 finalAnswer = String(value);
             }
-
-            // 4. Add to the responses array if there is an answer
             if (finalAnswer) {
                 responses.push({
                     _type: 'response', 
@@ -237,43 +222,32 @@ const handleSubmit = async (e) => {
                 });
             }
         }
-        
-        // 5. Build the final payload for our API endpoint
         const submissionPayload = {
             jobId: jobId,
             formResponses: responses,
             ...(filePayload && { fileData: filePayload }),
         };
-
         const response = await fetch('https://kyan-job-portal.vercel.app/api/submit-application', {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify(submissionPayload),
         });
-
         if (!response.ok) {
             const errorData = await response.json();
             throw new Error(errorData.message || 'Submission failed on the server.');
         }
-
-        // 7. Success!
         if (onSuccess) onSuccess();
-
     } catch (error) {
         console.error('Form submission error:', error);
         alert(`An error occurred: ${error.message}`);
     } finally {
         setIsSubmitting(false);
     }
-};
+  };
 
-const isFullWidth = (field) => {
-  return [
-    'textarea', 
-    'checkbox_grouped', 
-    'checkbox_grid'
-  ].includes(field.fieldType);
-};
+  const isFullWidth = (field) => {
+    return ['textarea', 'checkbox_grouped', 'checkbox_grid'].includes(field.fieldType);
+  };
 
   return (
     <form onSubmit={handleSubmit} className="application-form content-box">
@@ -281,30 +255,20 @@ const isFullWidth = (field) => {
         {fields.map(field => (
           <div 
             className={`form-group ${isFullWidth(field) ? 'full-width' : ''}`} 
-            key={field.fieldName}
-             data-field-name={field.fieldName}
+            key={field._key}
           >
-            <label htmlFor={field.fieldName} className="form-label-heading">
+            <label htmlFor={field.fieldName.current} className="form-label-heading">
               {field.label} {field.isRequired && '*'}
             </label>
             {renderField(field, formData, handleChange, handleRemoveFile)}
           </div>
         ))}
       </div>
-
       <button type="submit" disabled={isSubmitting} className="submit-button">
         {isSubmitting ? (
-          <>
-            <ImSpinner2 className="spinner" />
-            <span>Submitting...</span>
-          </>
+          <><ImSpinner2 className="spinner" /><span>Submitting...</span></>
         ) : (
-          <>
-            <span>Submit</span>
-            <span className="submit-icon-wrapper">
-              <HiCursorArrowRays />
-            </span>
-          </>
+          <><span >Submit</span><span className="submit-icon-wrapper"><HiCursorArrowRays /></span></>
         )}
       </button>
     </form>
