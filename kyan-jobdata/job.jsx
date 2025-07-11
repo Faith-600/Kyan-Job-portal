@@ -206,7 +206,7 @@ export default defineType({
                   {title: 'Radio Buttons (Select one)', value: 'radio'},
                   {title: 'Checkboxes (Grouped Rows)', value: 'checkbox_grouped'}, 
                  {title: 'Checkboxes (Simple Grid)', value: 'checkbox_grid'},                 
-                   {title: 'File Upload', value: 'file'},
+                 {title: 'File Upload', value: 'file'},
                 ],
               },
             }),
@@ -215,7 +215,7 @@ export default defineType({
               title: 'Options (for Radio/Checkbox)',
               type: 'array',
               of: [{type: 'string'}],
-        hidden: ({parent}) => parent?.fieldType === 'checkbox_grouped',            }),
+            hidden: ({parent}) => parent?.fieldType === 'checkbox_grouped',}),
            
        defineField({
                 name: 'checkboxGroups',
@@ -231,8 +231,7 @@ export default defineType({
       title: 'Allow an "Other" option with a text input?',
       type: 'boolean',
      initialValue: false,
-      hidden: ({ parent }) => !['radio', 'checkbox'].includes(parent?.fieldType),
-},
+    hidden: ({ parent }) => !['radio', 'checkbox_grouped', 'checkbox_grid'].includes(parent?.fieldType),},
      
             defineField({
               name: 'isRequired',
