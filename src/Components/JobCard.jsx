@@ -177,7 +177,7 @@ const toggleFilterVisibility = () => {
     let resizeTimer;
     const handleResize = () => {
       clearTimeout(resizeTimer);
-      resizeTimer = setTimeout(() => formatJobTitles(), 150);
+      resizeTimer = setTimeout(() => formatJobTitles(), 100);
     };
 
     // Initial run

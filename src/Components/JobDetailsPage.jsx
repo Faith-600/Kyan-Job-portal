@@ -22,7 +22,7 @@ const JobDetailsPage = () => {
   useEffect(() => {
     const timer = setTimeout(() => {
       setPageLoaded(true);
-    }, 100); 
+    }, 10); 
     return () => clearTimeout(timer);
   }, []);
 

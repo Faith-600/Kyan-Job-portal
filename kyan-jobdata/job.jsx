@@ -65,10 +65,10 @@ export default defineType({
       description: 'e.g., Full-Time, Part-Time, Contract',
       options: {
         list: [
-          {title: 'Full-Time', value: 'full-time'},
-          {title: 'Part-Time', value: 'part-time'},
-          {title: 'Contract', value: 'contract'},
-          {title: 'Internship', value: 'internship'},
+          {title: 'Full-Time', value: 'Full -Time'},
+          {title: 'Part-Time', value: 'Part-Time'},
+          {title: 'Contract', value: 'Contract'},
+          {title: 'Internship', value: 'Internship'},
         ],
         layout: 'radio',
       },

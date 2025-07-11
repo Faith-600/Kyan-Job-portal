@@ -94,7 +94,7 @@ const renderField = (field, formData, handleChange, handleRemoveFile) => {
         return (
             <label className="file-upload-label">
               <div className="file-info">
-                <div className="icon-upload"><HiOutlineUpload size={18}/></div>
+                <div className="icon-upload"><HiOutlineUpload size={12}/></div>
                 {file ? (
                   <span className="file-name" title={file.name}>{file.name}</span>
                 ) : (
@@ -268,7 +268,7 @@ export default function DynamicFormComponent({ fields, jobId, onSuccess }) {
         {isSubmitting ? (
           <><ImSpinner2 className="spinner" /><span>Submitting...</span></>
         ) : (
-          <><span >Submit</span><span className="submit-icon-wrapper"><HiCursorArrowRays /></span></>
+          <><span >Submit</span><span className="submit-icon-wrapper"><HiCursorArrowRays size={18} className="arrow"/></span></>
         )}
       </button>
     </form>

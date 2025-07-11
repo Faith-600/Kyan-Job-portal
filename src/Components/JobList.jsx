@@ -64,7 +64,7 @@ const formatTimeAgo = (dateString) => {
         <div className="job-meta">
           <span className="job-meta-item">
             <span className="icon-wrapper"><LuBriefcaseBusiness /></span>
-            {job.level}
+            {job.employmentType}
           </span>
           <span className="job-meta-item">
             <span className="icon-wrapper"><GoPerson /></span>

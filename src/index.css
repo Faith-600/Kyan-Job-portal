@@ -565,9 +565,7 @@ input[type="radio"]:checked {
   margin-left: auto;  
   margin-right: auto; 
  margin-top: 30px;
- 
- 
-}
+      }
 
 .portal-header {
   display: flex;
@@ -601,15 +599,15 @@ input[type="radio"]:checked {
   display: flex;
   flex-direction: column;
   min-width: 0; 
-  
 }
 
 
 
 .job-listings {
-  display: grid;
-  gap: 1.5rem; 
-  flex-grow: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+min-height: 100vh;
 }
 
 .text-container h2 {
@@ -702,7 +700,7 @@ input[type="radio"]:checked {
 }
 
 .job-card.is-visible {
-  animation: slide-up 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94) forwards;
+  animation: slide-up 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94) forwards;
 }
 
 
@@ -722,7 +720,6 @@ input[type="radio"]:checked {
   justify-content: space-around;
     height: fit-content;
 
- 
 }
 
 
@@ -836,6 +833,8 @@ input[type="radio"]:checked {
 
 
 /* --- Pagination --- */
+
+
 .pagination-footer {
   display: flex;
   justify-content: space-between; 
@@ -845,6 +844,7 @@ input[type="radio"]:checked {
   border: 1px solid #eef0f5;
   background-color: white;
   border-radius: 12px;
+ 
 }
 
 .page-nav {
@@ -1203,7 +1203,7 @@ input[type="radio"]:checked {
   border-radius: 12px;        
   padding: 24px 32px; 
    margin-bottom: 34px; 
-    width: 60vw; 
+    width: 50vw; 
     min-height: 80vh;  
   font-size: 15px;
   font-weight: 700;
@@ -1214,12 +1214,12 @@ input[type="radio"]:checked {
   font-size: 2rem;
   color: black;
  font-weight: bolder;
- background-color: white;
+ background-color:white;
   border-top-left-radius: 10px;   
   border-top-right-radius: 10px; 
   border-bottom: none;
  padding: 10px;
- min-width: 50vw; 
+ min-width: 40vw; 
 
 }
 
@@ -1256,7 +1256,7 @@ input[type="radio"]:checked {
 }
 
 .content-fader {
-  animation: slide-up 0.5s ease-out forwards;
+  animation: slide-up 0.7s ease-out forwards;
 }
 
 
@@ -1309,14 +1309,10 @@ input[type="radio"]:checked {
   margin-top: 24px; 
   margin-bottom: 12px; 
    font-family: 'Plus Jakarta Sans',sans-serif;
-   
-
-
-}
+   }
 
 .content-box p {
   margin-bottom: 1em; 
-
 }
 
 .content-box p:last-child {
@@ -1344,16 +1340,17 @@ input[type="radio"]:checked {
 /* DynamicForm.css */
 
 .application-form {
-  padding: 2rem;
-  background-color: #fdfdff; /* A very light off-white */
+  padding: 1rem;
+  background-color: #fdfdff; 
   border-radius: 12px;
   border: 1px solid #e8e6f1;
 }
 
 .form-grid-wrapper {
   display: grid;
-  grid-template-columns: 1fr 1fr;
+  grid-template-columns: 1fr 330px;
   gap: 1.5rem 2rem;
+   font-family: 'Plus Jakarta Sans';
 }
 
 .form-group {
@@ -1368,8 +1365,10 @@ input[type="radio"]:checked {
 .form-label-heading {
   font-size: 0.9rem;
   font-weight: 500;
-  color: #3d3d3d;
+  color: #403E3E;
   margin-bottom: 0.75rem;
+   font-family: 'Plus Jakarta Sans';
+
 }
 
 .form-input,
@@ -1380,21 +1379,25 @@ input[type="radio"]:checked {
   border-radius: 8px;
   background-color: #fff;
   font-size: 1rem;
-  color: #333;
+  color: #B4ACAC;
+
 }
 .form-input::placeholder,
 .form-textarea::placeholder {
-  color: #aaa;
+  color: #B4ACAC;
+
 }
 .form-input:focus,
 .form-textarea:focus {
   outline: none;
   border-color: #8a8a8a;
   box-shadow: 0 0 0 2px rgba(90, 89, 94, 0.1);
+
 }
 .form-textarea {
   min-height: 100px;
   resize: vertical;
+  
 }
 
 /* Custom Radio Button Styles */
@@ -1407,13 +1410,15 @@ input[type="radio"]:checked {
  padding: 10px;
  width: fit-content;
  border-radius: 10px;
+ font-weight: 400;
+ color: #666666;
 }
 .radio-label {
   display: flex;
   align-items: center;
   gap: 0.5rem;
   cursor: pointer;
-  
+
 }
 .radio-label input[type="radio"] {
    display: none;
@@ -1446,11 +1451,16 @@ input[type="radio"]:checked {
 /* Custom Checkbox Styles */
 .form-checkbox-grid {
   display: grid;
-  gap: 0.75rem;
+  gap: 1rem;
    grid-template-columns: 1fr 1fr;
-}
+   font-weight: 400;
+   color: #666666;
+
+   }
+
 .form-checkbox-grid.tasks-grid {
   grid-template-columns: 1fr 1fr;
+
 }
 .form-checkbox-grid.tools-grid {
   grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
@@ -1492,6 +1502,7 @@ input[type="radio"]:checked {
   display: flex;
   flex-direction: column;
   gap: 0.75rem;
+
 }
 
 .checkbox-row-container {
@@ -1503,12 +1514,17 @@ input[type="radio"]:checked {
   border: 1px solid #e0e0e0;
   border-radius: 8px;
   transition: border-color 0.2s;
+  font-weight: 400;
+  color: #666666;
+     width: fit-content;
+
 }
 
 .checkbox-row-container.other-container {
   display: grid;
   grid-template-columns: auto 1fr; 
  align-items: center;
+  width: fit-content;
 }
 
 .checkbox-label-inline {
@@ -1516,8 +1532,7 @@ input[type="radio"]:checked {
   align-items: center;
   gap: 0.5rem;
   cursor: pointer;
-  white-space: nowrap; 
-}
+ }
 
 .checkbox-label-inline input[type="checkbox"] {
   appearance: none; 
@@ -1563,7 +1578,7 @@ input[type="radio"]:checked {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 0.75rem 1rem;
+  padding: 0.65rem 1rem;
   border: 1px solid #e0e0e0;
   border-radius: 8px;
   cursor: pointer;
@@ -1574,7 +1589,19 @@ input[type="radio"]:checked {
   gap: 0.75rem;
 }
 .icon-upload {
-  color: #555;
+  color: white;
+  background-color: #000;
+  padding: 5px;
+  border-radius: 50%;
+  
+}
+
+.arrow{
+   color: black;
+  background-color:white;
+  border-radius: 50%;
+  height: 25px;
+  width: 25px;
 }
 .file-name {
   font-weight: 500;
@@ -1627,7 +1654,6 @@ input[type="radio"]:checked {
 }
 .spinner {
   animation: spin 1s linear infinite;
-  font-size: 20px;
 }
 @keyframes spin {
   from { transform: rotate(0deg); }
@@ -2542,26 +2568,45 @@ font-size: 1.1rem;
   white-space: normal;
   
  }
-    .form-grid, .tasks-grid {
-    grid-template-columns: 1fr;
-  }
-  .tools-grid {
-    grid-template-columns: repeat(2, 1fr); 
-  }
 
+
+  .form-checkbox-grid.tasks-grid {
+    grid-template-columns: 1fr; 
+  }
+   
+  
 .details-content-area {
   padding: 0 ;
 }
 
-.checkbox-row-two{
-  border: none;
+ .form-grid-wrapper {
+    grid-template-columns: 1fr; 
+  }
+
+  .checkbox-multigroup-wrapper {
+  gap: 0.5rem;
+    border: 1px solid #e0e0e0;
+    padding-bottom: 10px;
+     border-radius: 8px;
+
 }
-.other-span{
-  border: none;
+    .checkbox-row-container {
+    border: none;
+    display: flex;
+    flex-direction: row; 
+    align-items: flex-start; 
+    gap: 1rem;  
+    }
+
+   
+
+ .checkbox-row-container.other-container {
+    border: 1px solid #e0e0e0;
+    width: fit-content;
+     padding-right: 10px;
 }
-.checkbox-row{
-  border: none;
-}
+ 
+
 
 .main-checkbox{
   border: 1px solid #d1d5db;
