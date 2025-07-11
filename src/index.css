@@ -2079,8 +2079,40 @@ min-height: 100vh;
 .content-box{
    padding: 24px 22px; 
   width: auto; 
+  }
+   .form-checkbox-grid.tasks-grid {
+    grid-template-columns: 1fr; 
+  }
+   
   
+.details-content-area {
+  padding: 0 ;
 }
+
+ .form-grid-wrapper {
+    grid-template-columns: 1fr; 
+  }
+
+  .checkbox-multigroup-wrapper {
+  gap: 0.5rem;
+    border: 1px solid #e0e0e0;
+    padding-bottom: 10px;
+     border-radius: 8px;
+
+}
+    .checkbox-row-container {
+    border: none;
+    display: flex;
+    flex-direction: row; 
+    align-items: flex-start; 
+    gap: 1rem;  
+    }
+
+  .checkbox-row-container.other-container {
+    border: 1px solid #e0e0e0;
+    width: fit-content;
+     padding-right: 10px;
+ }
 
 
 }
@@ -2355,10 +2387,7 @@ min-height: 100vh;
       
   }
 
-  
-
-
-.job-title-container {
+  .job-title-container {
   grid-area: title;
   display: flex;
   align-items: center;
@@ -2497,8 +2526,6 @@ min-height: 100vh;
   height: 70px;
  
 }
-
-
 
 .job-title-group {
   display: flex;
