@@ -7,6 +7,7 @@ import { useInView } from 'react-intersection-observer';
 
 
 const JobList = ({ job,index }) => {
+   const cardClassName = `job-card ${!job.isFeatured ? 'is-closed' : ''}`;
 
     const { ref, inView } = useInView({
     triggerOnce: true,
@@ -76,7 +77,7 @@ const formatTimeAgo = (dateString) => {
           </span>
         </div>
       </div>
-        {hasDetails ? (
+        {job.isFeatured ? (
           <div className='apply-container'>
           <Link to={`/job/${job.slug}`} className="apply-button-now">
             View Details
@@ -85,10 +86,11 @@ const formatTimeAgo = (dateString) => {
         ) : (
           <div className='apply-container'>
           <button className="coming-soon-button-now" disabled>
-            Coming Soon
+            Closed
           </button>
           </div>
-        )}    </div>
+        )}   
+         </div>
      
      </>
      

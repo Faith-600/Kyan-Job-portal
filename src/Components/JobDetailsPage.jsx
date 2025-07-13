@@ -1,6 +1,5 @@
 import React, { useState,useEffect } from 'react';
-import { useParams, Link } from 'react-router-dom';
-import jobsData from './JobData'; 
+import { useParams, useNavigate } from 'react-router-dom';
 import Footer from './Footer';
 import WhatsAppFloat from './Whatsapp';
 import ThankYou from './ThankYou';
@@ -18,6 +17,7 @@ const JobDetailsPage = () => {
   const [activeSection, setActiveSection] = useState('');
     const [isSubmitted, setIsSubmitted] = useState(false);
       const [isPageLoaded, setPageLoaded] = useState(false);
+      const navigate = useNavigate()
 
   useEffect(() => {
     const timer = setTimeout(() => {
@@ -59,9 +59,17 @@ const JobDetailsPage = () => {
          setLoading(true);
     sanityClient.fetch(query, { slug })
       .then((data) => {
-        setJob(data);
-         setLoading(false);
-      })
+
+           if (!data) {
+            setError("Job not found.");
+        } else if (data.isFeatured === false) {
+                console.warn(`Access denied to closed job: ${slug}. Redirecting...`);
+          navigate('/jobs');
+           } else {
+          setJob(data);
+           setLoading(false);
+           }
+       })
       .catch((err) => {
           console.error("Error fetching job:", err);
         setError("Failed to load job details.");

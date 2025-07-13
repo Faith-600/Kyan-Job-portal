@@ -811,7 +811,7 @@ min-height: 100vh;
   border-radius: 8px;
   font-size: 0.6rem;
   font-weight: 600;
-  cursor: pointer;
+  cursor: not-allowed;
   width: 120px;
   transition: background-color 0.2s ease-in-out;
   display: flex;
