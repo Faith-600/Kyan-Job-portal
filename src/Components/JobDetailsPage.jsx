@@ -177,10 +177,7 @@ const JobDetailsPage = () => {
       )}
     </>
           
-         
-         
-          
-        );
+      );
          
       default:
         return renderTabContent(<p>{job.summary}</p>);

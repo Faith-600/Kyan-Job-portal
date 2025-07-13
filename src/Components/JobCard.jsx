@@ -19,6 +19,9 @@ const JobCard = React.forwardRef((props ,ref) => {
    const [searchTerm, setSearchTerm] = useState('');
    const [activeFilters, setActiveFilters] = useState(INITIAL_FILTERS);
    const [dateFilter, setDateFilter] = useState('all');
+    const [itemsPerPage, setItemsPerPage] = useState(5);
+  const [currentPage, setCurrentPage] = useState(1);
+  const [isNextDisabled, setIsNextDisabled] = useState(false);
 
      const { ref: sectionRef, inView: sectionInView } = useInView({
     triggerOnce: true,
@@ -128,56 +131,66 @@ const toggleFilterVisibility = () => {
   });
     }, [allJobs, searchTerm, activeFilters, dateFilter]); 
 
+const paginatedJobs = useMemo(() => {
+  console.log(`Paginating ${filteredJobs.length} jobs.`);
+  const start = (currentPage - 1) * itemsPerPage;
+  const end = start + itemsPerPage;
+  console.log(`Slicing from ${start} to ${end}.`);
+  return filteredJobs.slice(start, end);
+}, [filteredJobs, currentPage, itemsPerPage]);
+
 
    const areFiltersApplied = activeFilters.location.length > 0 || activeFilters.employmentType.length > 0;
 
     const jobsListContainerRef = useRef(null);
 
+const formatJobTitles = () => {
+  if (window.innerWidth >= 600) {
+    const titles = jobsListContainerRef.current?.querySelectorAll('.job-title-text');
+    titles?.forEach(title => {
+      if (title.dataset.originalTitle) {
+        title.innerHTML = title.dataset.originalTitle;
+      }
+    });
+    return;
+  }
 
-    const formatJobTitles = () => {
-    if (window.innerWidth >= 600) {
-      const titles = jobsListContainerRef.current?.querySelectorAll('.job-title-text');
-      titles?.forEach(title => {
-        if (title.dataset.originalTitle) title.innerHTML = title.dataset.originalTitle;
-      });
-      return;
+  if (!jobsListContainerRef.current) return;
+  const titles = jobsListContainerRef.current.querySelectorAll('.job-title-text');
+
+  titles.forEach(title => {
+    if (!title.dataset.originalTitle) {
+      title.dataset.originalTitle = title.innerText;
     }
-    
-    if (!jobsListContainerRef.current) return;
-    const titles = jobsListContainerRef.current.querySelectorAll('.job-title-text');
+    title.innerHTML = title.dataset.originalTitle;
 
-    titles.forEach(title => {
-      if (!title.dataset.originalTitle) title.dataset.originalTitle = title.innerText;
-      title.innerHTML = title.dataset.originalTitle;
-
+    const originalText = title.dataset.originalTitle;
+    const words = originalText.split(' ');
+    if (words.length > 1) {
       const styles = window.getComputedStyle(title);
       const lineHeight = parseFloat(styles.lineHeight);
 
       if (title.offsetHeight < lineHeight * 1.5) {
-        const originalText = title.innerText;
-        const words = originalText.split(' ');
-
-        if (words.length > 1) {
-          const middleIndex = Math.floor(words.length / 2);
-          const firstLine = words.slice(0, middleIndex).join(' ');
-          const secondLine = words.slice(middleIndex).join(' ');
-          title.innerHTML = `${firstLine}<br>${secondLine}`;
-        } else {
-          const midPoint = Math.floor(originalText.length / 2);
-          const firstPart = originalText.substring(0, midPoint);
-          const secondPart = originalText.substring(midPoint);
-          title.innerHTML = `${firstPart}<br>${secondPart}`;
-        }
+        const middleIndex = Math.floor(words.length / 2);
+        const firstLine = words.slice(0, middleIndex).join(' ');
+        const secondLine = words.slice(middleIndex).join(' ');
+        title.innerHTML = `${firstLine}<br>${secondLine}`;
       }
-    });
-  };
+    }
+   
+  });
+};
+useEffect(() => {
+  const totalPages = Math.ceil(filteredJobs.length / itemsPerPage);
+  setIsNextDisabled(currentPage >= totalPages);
+}, [filteredJobs, currentPage, itemsPerPage]);
 
-  // 3. The useEffect hook to run the function
-  useEffect(() => {
+   
+useEffect(() => {
     let resizeTimer;
     const handleResize = () => {
       clearTimeout(resizeTimer);
-      resizeTimer = setTimeout(() => formatJobTitles(), 100);
+      resizeTimer = setTimeout(() => formatJobTitles(), 50);
     };
 
     // Initial run
@@ -198,6 +211,20 @@ const toggleFilterVisibility = () => {
   color: '#6c757d',
   fontSize: '1rem' 
   };
+
+
+  const handleNext = () => {
+  setCurrentPage(prev => prev + 1);
+};
+
+const handlePrev = () => {
+  setCurrentPage(prev => prev - 1);
+};
+
+const handleItemsPerPageChange = (e) => {
+  setItemsPerPage(parseInt(e.target.value, 10));
+  setCurrentPage(1); 
+};
 
 
   return (
@@ -262,9 +289,9 @@ const toggleFilterVisibility = () => {
 
            <main className="main-content-area">
             <div className="job-listings" ref={jobsListContainerRef}>
-           {filteredJobs.length > 0 ? (
-          filteredJobs.map((job,index) => (
-             <JobList key={job._id} job={job} index={index} />        
+            {paginatedJobs.length > 0 ? ( 
+    paginatedJobs.map((job,index) => ( 
+      <JobList key={job._id} job={job} index={index} />       
               ))
         ) : (
          <div style={noJobsFoundStyle}>
@@ -279,28 +306,28 @@ const toggleFilterVisibility = () => {
             )}
           </div>
       
-          <div className="pagination-footer">
-          <div className="show-entries">
-            <span>Show</span>
-            <select>
-              <option>5</option>
-              <option>10</option>
-              <option>20</option>
-            </select>
-            <span>entries</span>
-          </div>
-          <div className="page-nav">
-            <button>
-              <IoMdArrowDropleft size={20} />
-              <p>Previous</p>
-            </button>
-            <button className="active">1</button>
-            <button>
-              <p>Next</p>
-              <IoMdArrowDropright size={20} />
-            </button>
-          </div>
-          </div>
+<div className="pagination-footer">
+  <div className="show-entries">
+    <span>Show</span>
+    <select value={itemsPerPage} onChange={handleItemsPerPageChange}>
+      <option value={5}>5</option>
+      <option value={10}>10</option>
+      <option value={20}>20</option>
+    </select>
+    <span>entries</span>
+  </div>
+  <div className="page-nav">
+    <button onClick={handlePrev} disabled={currentPage === 1}>
+      <IoMdArrowDropleft size={20} />
+      <p>Previous</p>
+    </button>
+    <button className="active" aria-current="page">{currentPage}</button>
+    <button onClick={handleNext} disabled={isNextDisabled}>
+      <p>Next</p>
+      <IoMdArrowDropright size={20} />
+    </button>
+  </div>
+</div>
         </main>
        </div>
         </section>

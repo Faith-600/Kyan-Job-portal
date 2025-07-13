@@ -25,7 +25,7 @@ const renderField = (field, formData, handleChange, handleRemoveFile) => {
     case 'textarea':
       return <textarea {...commonProps} value={formData[fieldNameString] || ''} onChange={handleChange} className="form-textarea" />;
 
-    case 'radio':
+    case 'radio':{
       return (
         <div className="form-options-container">
           {options.map(opt => (
@@ -37,6 +37,7 @@ const renderField = (field, formData, handleChange, handleRemoveFile) => {
           ))}
         </div>
       );
+    }
       
      case 'checkbox_grouped': {
       const groups = checkboxGroups || [];
@@ -245,9 +246,17 @@ export default function DynamicFormComponent({ fields, jobId, onSuccess }) {
     }
   };
 
-  const isFullWidth = (field) => {
-    return ['textarea', 'checkbox_grouped', 'checkbox_grid'].includes(field.fieldType);
-  };
+ const isFullWidth = (field) => {
+  const fullWidthTypes = ['textarea', 'checkbox_grouped', 'checkbox_grid'];
+  if (fullWidthTypes.includes(field.fieldType)) {
+    return true;
+  }
+
+  if (field.fieldType === 'radio' && field.options && field.options.length > 3) {
+    return true;
+  }
+  return false;
+};
 
   return (
     <form onSubmit={handleSubmit} className="application-form content-box">
