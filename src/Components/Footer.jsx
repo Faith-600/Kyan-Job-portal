@@ -55,7 +55,7 @@ const Footer = React.forwardRef((props,ref) => {
     setIsSubscribing(true);
 
     try {
-      const res = await fetch('https://kyan-job-portal.vercel.app/api/subscribe', {
+      const res = await fetch('/api/subscribe', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
