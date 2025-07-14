@@ -3,7 +3,9 @@ const mailchimp = require('@mailchimp/mailchimp_marketing');
 
 const allowedOrigins = [
   'http://localhost:5173', 
-  'https://kyan-job-portal.vercel.app/' 
+  'https://kyan-job-portal.vercel.app/',
+  "https://career.kyanbrands.org/"
+
 ];
 
 
