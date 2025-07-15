@@ -5,8 +5,7 @@ const allowedOrigins = [
   'http://localhost:5173', 
   'https://kyan-job-portal.vercel.app/',
   "https://career.kyanbrands.org/",
-  "www.career.kyanbrands.org"
-
+'https://www.career.kyanbrands.org'
 
 ];
 
