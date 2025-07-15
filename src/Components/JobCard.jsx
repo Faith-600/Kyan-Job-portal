@@ -80,20 +80,21 @@ const JobCard = React.forwardRef((props ,ref) => {
 
      const handleDateFilterChange = (value) => {
         setDateFilter(value);
+        setCurrentPage(1)
     };
 
     const handleClearFilters = () => {
     setActiveFilters(INITIAL_FILTERS);
     setDateFilter('all'); 
-    setCurrentPage(1);
+    setCurrentPage(1)
   };
 
    const handleApplyFilters = (newFilters) => {
     setActiveFilters(newFilters);
-    setCurrentPage(1);
     if (isFilterVisible) {
       setFilterVisible(false);
     }
+    setCurrentPage(1)
   };
 
 const areFiltersActive = activeFilters.location.length > 0 || activeFilters.employmentType.length > 0;
@@ -104,7 +105,7 @@ const toggleFilterVisibility = () => {
 
     const handleSearchInputChange = (event) => {
     setSearchTerm(event.target.value);
-    setCurrentPage(1);
+    setCurrentPage(1)
   };
 
   const filteredJobs = useMemo(() => {
@@ -197,17 +198,14 @@ useEffect(() => {
   const totalPages = Math.ceil(filteredJobs.length / itemsPerPage);
   setIsNextDisabled(currentPage >= totalPages);
 }, [filteredJobs, currentPage, itemsPerPage]);
- 
+
+
 useEffect(() => {
-  if (isInitialMount.current) {
-    isInitialMount.current = false;
-  } else {
-    if (scrollTargetRef.current) {
-      scrollTargetRef.current.scrollIntoView({ behavior: 'smooth' });
-    }
+  if (scrollTargetRef.current) {
+    scrollTargetRef.current.scrollIntoView({ behavior: 'smooth' });
   }
 }, [currentPage, itemsPerPage]);
-
+   
 useEffect(() => {
     let resizeTimer;
     const handleResize = () => {
@@ -257,7 +255,7 @@ const handleItemsPerPageChange = (e) => {
         className={`job-portal-page ${sectionInView ? 'is-visible' : ''}`}>    
           {/* === HEADER SECTION === */}
       <header className="portal-header"
-      ref={scrollTargetRef}
+       ref={scrollTargetRef}
       >
         <div className="text-container">
         <h2>Job Recommendations for you</h2>
@@ -311,7 +309,7 @@ const handleItemsPerPageChange = (e) => {
         
                 {/* --- 2. MAIN CONTENT AREA (NEW WRAPPER) --- */}
 
-           <main className="main-content-area" >
+           <main className="main-content-area">
             <div className="job-listings" ref={jobsListContainerRef}>
             {paginatedJobs.length > 0 ? ( 
     paginatedJobs.map((job,index) => ( 
