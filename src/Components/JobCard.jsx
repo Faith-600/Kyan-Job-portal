@@ -23,6 +23,20 @@ const JobCard = React.forwardRef((props ,ref) => {
   const [currentPage, setCurrentPage] = useState(1);
   const [isNextDisabled, setIsNextDisabled] = useState(false);
 
+  const scrollTargetRef = useRef(null);
+  const isInitialMount = useRef(true);
+
+ useEffect(() => {
+  if ('scrollRestoration' in window.history) {
+    window.history.scrollRestoration = 'manual';
+  }
+  const timer = setTimeout(() => {
+    window.scrollTo({ top: 0, left: 0, behavior: 'instant' });
+  }, 100);
+  return () => clearTimeout(timer);
+}, []);
+
+
      const { ref: sectionRef, inView: sectionInView } = useInView({
     triggerOnce: true,
     threshold: 0.1,
@@ -64,21 +78,19 @@ const JobCard = React.forwardRef((props ,ref) => {
       });
   }, []); 
 
-
-
-      const handleDateFilterChange = (value) => {
+     const handleDateFilterChange = (value) => {
         setDateFilter(value);
     };
-
-    
 
     const handleClearFilters = () => {
     setActiveFilters(INITIAL_FILTERS);
     setDateFilter('all'); 
+    setCurrentPage(1);
   };
 
    const handleApplyFilters = (newFilters) => {
     setActiveFilters(newFilters);
+    setCurrentPage(1);
     if (isFilterVisible) {
       setFilterVisible(false);
     }
@@ -92,6 +104,7 @@ const toggleFilterVisibility = () => {
 
     const handleSearchInputChange = (event) => {
     setSearchTerm(event.target.value);
+    setCurrentPage(1);
   };
 
   const filteredJobs = useMemo(() => {
@@ -184,8 +197,17 @@ useEffect(() => {
   const totalPages = Math.ceil(filteredJobs.length / itemsPerPage);
   setIsNextDisabled(currentPage >= totalPages);
 }, [filteredJobs, currentPage, itemsPerPage]);
+ 
+useEffect(() => {
+  if (isInitialMount.current) {
+    isInitialMount.current = false;
+  } else {
+    if (scrollTargetRef.current) {
+      scrollTargetRef.current.scrollIntoView({ behavior: 'smooth' });
+    }
+  }
+}, [currentPage, itemsPerPage]);
 
-   
 useEffect(() => {
     let resizeTimer;
     const handleResize = () => {
@@ -234,7 +256,9 @@ const handleItemsPerPageChange = (e) => {
         ref={sectionRef} // Attach the ref here
         className={`job-portal-page ${sectionInView ? 'is-visible' : ''}`}>    
           {/* === HEADER SECTION === */}
-      <header className="portal-header">
+      <header className="portal-header"
+      ref={scrollTargetRef}
+      >
         <div className="text-container">
         <h2>Job Recommendations for you</h2>
          <h6>All applicants are expected to read the company’s profile before applying.
@@ -287,7 +311,7 @@ const handleItemsPerPageChange = (e) => {
         
                 {/* --- 2. MAIN CONTENT AREA (NEW WRAPPER) --- */}
 
-           <main className="main-content-area">
+           <main className="main-content-area" >
             <div className="job-listings" ref={jobsListContainerRef}>
             {paginatedJobs.length > 0 ? ( 
     paginatedJobs.map((job,index) => ( 
