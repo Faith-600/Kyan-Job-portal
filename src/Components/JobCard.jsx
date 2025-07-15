@@ -25,20 +25,10 @@ const JobCard = React.forwardRef((props ,ref) => {
 
   const scrollTargetRef = useRef(null);
   const isInitialMount = useRef(true);
-
- useEffect(() => {
-  if ('scrollRestoration' in window.history) {
-    window.history.scrollRestoration = 'manual';
-  }
-  const timer = setTimeout(() => {
-    window.scrollTo({ top: 0, left: 0, behavior: 'instant' });
-  }, 100);
-  return () => clearTimeout(timer);
-}, []);
-
+  
 
      const { ref: sectionRef, inView: sectionInView } = useInView({
-    triggerOnce: true,
+   triggerOnce: true,
     threshold: 0.1,
   });
 
@@ -199,12 +189,6 @@ useEffect(() => {
   setIsNextDisabled(currentPage >= totalPages);
 }, [filteredJobs, currentPage, itemsPerPage]);
 
-
-useEffect(() => {
-  if (scrollTargetRef.current) {
-    scrollTargetRef.current.scrollIntoView({ behavior: 'smooth' });
-  }
-}, [currentPage, itemsPerPage]);
    
 useEffect(() => {
     let resizeTimer;
@@ -247,11 +231,29 @@ const handleItemsPerPageChange = (e) => {
 };
 
 
+
+
+useEffect(() => {
+  if (isInitialMount.current) {
+    isInitialMount.current = false;
+    return; 
+  }
+
+  if (filteredJobs.length > itemsPerPage) {
+    const timer = setTimeout(() => {
+      scrollTargetRef.current?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }, 50);
+    return () => clearTimeout(timer);
+  }
+
+}, [currentPage,itemsPerPage]);
+
+
   return (
     <>
  <section
         id="apply"
-        ref={sectionRef} // Attach the ref here
+        ref={sectionRef} 
         className={`job-portal-page ${sectionInView ? 'is-visible' : ''}`}>    
           {/* === HEADER SECTION === */}
       <header className="portal-header"
