@@ -17,7 +17,7 @@ html {
   margin: 0;
   background-color: #081424;
   position: relative; 
-  min-height: 100vh;
+  /* min-height: 100vh; */
 
   background-image:
   url('/Vector1.svg'), 
@@ -178,7 +178,7 @@ html {
   width: 20px;
       }
 
-      .nav-links li a::after {
+.nav-links li a::after {
   content: '';
   position: absolute;
   bottom: 0;
@@ -372,9 +372,10 @@ html {
   gap: 20px;
   background-color: white;
   border-radius: 12px;
-  padding: 10px;
-  height: 21vh;
+  padding: 12px ;
+  /* height: 18vh; */
   position: static;
+  /* margin-bottom: 10px; */
 
 }
 
@@ -579,7 +580,7 @@ input[type="radio"]:checked {
   border: 1px solid #eef0f5;
   margin: auto;
   position: relative;
-    z-index: 2;       
+    z-index: 2;  
 
 }
 
@@ -591,7 +592,7 @@ input[type="radio"]:checked {
   margin: 0 auto;
   padding: 1rem;
   position: relative;
-    z-index: 1;          
+    z-index: 1;  
 
   }
 
@@ -606,7 +607,7 @@ input[type="radio"]:checked {
   display: flex;
   flex-direction: column;
   gap: 1.5rem;
-min-height: 100vh;
+/* min-height: 100vh; */
 }
 
 .text-container h2 {
@@ -1964,12 +1965,15 @@ min-height: 100vh;
 
   .hero-Content h1{
   line-height: 1;
+  padding: 10px;
 }
 
   .filter-wrapper {
   position: relative;
   display: flex;
   }
+
+
    .filter-icon-button{
     display: block;
    background-color: black;
@@ -1989,7 +1993,7 @@ min-height: 100vh;
     top: calc(100% + 8px); 
     right: -30px;
     z-index: 1000;
-    width: 45vw;  
+    width: 47vw;  
     background-color: white;
   border-radius: 15px;
   box-shadow: 0 8px 24px rgba(0, 0, 0, 0.15);
@@ -2025,7 +2029,6 @@ min-height: 100vh;
  
   }
 
-
 .filters-header{
  justify-content: center;
  gap: 10px;
@@ -2053,12 +2056,14 @@ min-height: 100vh;
    }
  
    .portal-header{
-    max-width: 94vw;
+    max-width: 97vw;
     padding:1rem 3rem;
     margin-top: 10px;
     flex-wrap: wrap;
     justify-content: center;
      }
+
+
 .job-card {
   gap: 20px;
    } 
