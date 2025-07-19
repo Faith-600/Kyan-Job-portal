@@ -1964,8 +1964,10 @@ input[type="radio"]:checked {
 }
 
   .hero-Content h1{
-  line-height: 1;
-  padding: 10px;
+    max-width: 18ch;
+  line-height: 1.2;
+margin-top: 120px;
+
 }
 
   .filter-wrapper {
@@ -2507,6 +2509,7 @@ input[type="radio"]:checked {
   font-size: 52px;
   padding:5px ;
   line-height: 1.2;
+  margin-top: 100px;
 }
  
 
