@@ -2595,7 +2595,7 @@ font-size: 1.1rem;
     flex-direction: row;     
     flex-wrap: wrap;          
     justify-content: center;
-      height:fit-content;  
+    height:fit-content;  
      
   }
 
