@@ -1157,7 +1157,7 @@ input[type="radio"]:checked {
   display: flex;
   flex-direction: column;
   gap: 20px;
-    height: 80vh;
+  height: 80vh;
   justify-content: center;
   align-items: center;
 }
@@ -2595,7 +2595,7 @@ font-size: 1.1rem;
     flex-direction: row;     
     flex-wrap: wrap;          
     justify-content: center;
-      height: 200px;  
+      height:fit-content;  
      
   }
 
