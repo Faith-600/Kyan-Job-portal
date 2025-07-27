@@ -1,5 +1,5 @@
 import React, { useState,useEffect } from 'react';
-import { useParams, useNavigate } from 'react-router-dom';
+import { useParams, useNavigate,Link } from 'react-router-dom';
 import Footer from './Footer';
 import WhatsAppFloat from './Whatsapp';
 import ThankYou from './ThankYou';
@@ -47,7 +47,7 @@ const JobDetailsPage = () => {
     return;
   }
    const query = `*[_type == "job" && slug.current == $slug][0]{
-    _id, titleTwo, summaryTitle, summary, detailsTitle, details,
+    _id, titleTwo,isFeatured, summaryTitle, summary, detailsTitle, details,
     requirementsTitle, requirementDetails, benefitTitle, benefitDetails,
     applyContent, "slug": slug.current,
     formFields[]{
@@ -60,22 +60,27 @@ const JobDetailsPage = () => {
     sanityClient.fetch(query, { slug })
       .then((data) => {
 
-           if (!data) {
-            setError("Job not found.");
-        } else if (data.isFeatured === false) {
-                console.warn(`Access denied to closed job: ${slug}. Redirecting...`);
-          navigate('/jobs');
-           } else {
-          setJob(data);
-           setLoading(false);
-           }
+         if (!data) {
+        console.error(`Job with slug "${slug}" not found. Redirecting.`);
+        navigate('/jobs', { replace: true }); 
+        return; 
+      }
+
+      if (data.isFeatured === false) {
+        console.log(`Job "${slug}" is closed. Redirecting.`);
+        navigate('/jobs', { replace: true });
+        return; 
+      }
+          setJob(data)
        })
       .catch((err) => {
           console.error("Error fetching job:", err);
         setError("Failed to load job details.");
-        setLoading(false); 
+      })
+      .finally(()=>{
+              setLoading(false); 
       });
-  }, [slug]);
+  }, [slug,navigate]);
 
    if (loading) {
     return <div style={{ padding: "5rem", textAlign: "center" }}></div>;

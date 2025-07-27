@@ -607,7 +607,7 @@ input[type="radio"]:checked {
   display: flex;
   flex-direction: column;
   gap: 1.5rem;
-/* min-height: 100vh; */
+min-height: 100vh;
 }
 
 .text-container h2 {
@@ -2064,6 +2064,10 @@ margin-top: 120px;
     flex-wrap: wrap;
     justify-content: center;
      }
+
+     .job-listings {
+ min-height: fit-content;
+}
 
 
 .job-card {
