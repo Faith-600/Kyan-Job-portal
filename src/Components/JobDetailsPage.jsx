@@ -62,13 +62,13 @@ const JobDetailsPage = () => {
 
          if (!data) {
         console.error(`Job with slug "${slug}" not found. Redirecting.`);
-        navigate('/jobs', { replace: true }); 
+        navigate('/', { replace: true }); 
         return; 
       }
 
       if (data.isFeatured === false) {
         console.log(`Job "${slug}" is closed. Redirecting.`);
-        navigate('/jobs', { replace: true });
+        navigate('/', { replace: true });
         return; 
       }
           setJob(data)
